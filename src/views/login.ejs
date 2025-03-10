@@ -1,0 +1,32 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-logo">
+            <h1>CRM Sistema</h1>
+        </div>
+        
+        <h2 class="auth-heading">Login</h2>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" placeholder="Seu email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" id="password" class="form-control" placeholder="Sua senha" required>
+            </div>
+            
+            <div id="loginError" class="form-error mb-10"></div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+            </div>
+        </form>
+        
+        <div class="auth-footer">
+            <p>Não tem uma conta? <a href="/register">Registre-se</a></p>
+            <p><a href="/forgot-password">Esqueceu sua senha?</a></p>
+        </div>
+    </div>
+</div>

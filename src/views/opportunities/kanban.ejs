@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban de Oportunidades | CRM</title>
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Drag and Drop Library -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    
+    <style>
+        .kanban-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 0;
+            margin: 0 -10px;
+            min-height: calc(100vh - 240px);
+        }
+        
+        .kanban-column {
+            flex: 0 0 300px;
+            margin: 0 10px;
+            background: #1e1e1e;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            max-height: 100%;
+        }
+        
+        .kanban-column-header {
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 5px 5px 0 0;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .kanban-column-header.prospect {
+            background: #9E9E9E;
+        }
+        
+        .kanban-column-header.qualification {
+            background: #2196F3;
+        }
+        
+        .kanban-column-header.proposal {
+            background: #FF9800;
+        }
+        
+        .kanban-column-header.negotiation {
+            background: #9C27B0;
+        }
+        
+        .kanban-column-header.closing {
+            background: #4CAF50;
+        }
+        
+        .kanban-column-header.lost {
+            background: #F44336;
+        }
+        
+        .column-count {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 2px 8px;
+            font-size: 12px;
+        }
+        
+        .column-value {
+            margin-top: 5px;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .kanban-cards {
+            padding: 10px;
+            overflow-y: auto;
+            flex-grow: 1;
+            min-height: 200px;
+        }
+        
+        .kanban-card {
+            background: #252525;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            cursor: grab;
+            transition: box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .kanban-card:hover {
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .kanban-card:active {
+            cursor: grabbing;
+        }
+        
+        .card-title {
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #fff;
+            padding-right: 20px;
+        }
+        
+        .card-customer {
+            font-size: 13px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #fff;
+        }
+        
+        .card-value {
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .card-date {
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-date i {
+            margin-right: 4px;
+        }
+        
+        .card-menu {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #777;
+            cursor: pointer;
+        }
+        
+        .card-menu-options {
+            position: absolute;
+            top: 25px;
+            right: 0;
+            background: #121212;
+            border-radius: 5px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            z-index: 100;
+            display: none;
+        }
+        
+        .card-menu-options.active {
+            display: block;
+        }
+        
+        .card-menu-option {
+            padding: 8px 15px;
+            font-size: 14px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-menu-option:hover {
+            background: #121212;
+        }
+        
+        .card-menu-option i {
+            margin-right: 8px;
+            width: 20px;
+        }
+        
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        
+        .card-tag {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            background: #121212;
+            color: #fff;
+        }
+        
+        .high-priority {
+            border-left: 3px solid #F44336;
+        }
+        
+        .medium-priority {
+            border-left: 3px solid #FF9800;
+        }
+        
+        .low-priority {
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .card-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #4a6cf7;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+        
+        .kanban-filters {
+            display: flex;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .kanban-filter {
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .kanban-filter label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .kanban-filter select,
+        .kanban-filter input {
+            min-width: 180px;
+            padding: 8px 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .kanban-add-card {
+            background: #1e1e1ea9;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .kanban-add-card:hover {
+            background: #121212;
+            border-color: #ccc;
+            color: #ccc;
+        }
+        
+        .ghost-card {
+            opacity: 0.5;
+        }
+        
+        .drop-placeholder {
+            height: 90px;
+            background: rgba(0, 0, 0, 0.03);
+            border: 2px dashed #ccc;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        
+        /* Quick Add Form */
+        .quick-add-form {
+            display: none;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            margin-bottom: 10px;
+        }
+        
+        .quick-add-form.show {
+            display: block;
+        }
+        
+        .quick-add-form input,
+        .quick-add-form select {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .quick-add-form-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .quick-add-form-buttons button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .quick-add-form-buttons button.save-btn {
+            background: var(--primary-color);
+            color: white;
+            margin-right: 5px;
+        }
+        
+        .quick-add-form-buttons button.cancel-btn {
+            background: #f5f5f5;
+            color: #333;
+            margin-left: 5px;
+        }
+        
+        /* Detail Modal */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .modal-backdrop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .card-detail-modal {
+            width: 600px;
+            max-width: 90%;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-backdrop.show .card-detail-modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            position: relative;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .modal-section {
+            margin-bottom: 20px;
+        }
+        
+        .modal-section-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .info-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        
+        .info-label {
+            flex: 0 0 140px;
+            color: #777;
+        }
+        
+        .info-value {
+            flex: 1;
+            font-weight: 500;
+        }
+        
+        .stage-select {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 15px;
+            width: 100%;
+        }
+        
+        .modal-actions {
+            padding: 15px 20px;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .modal-actions button {
+            padding: 8px 15px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .modal-actions button.primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .modal-actions button.secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .kanban-container {
+                padding: 10px 0;
+            }
+            
+            .kanban-column {
+                flex: 0 0 280px;
+            }
+            
+            .info-row {
+                flex-direction: column;
+            }
+            
+            .info-label {
+                margin-bottom: 4px;
+            }
+        }
+        
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .loading-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Progress Bar */
+        .opportunity-progress {
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            margin-top: 8px;
+        }
+        
+        .opportunity-progress-bar {
+            height: 100%;
+            border-radius: 3px;
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <%- include('../partials/sidebar') %>
+        
+        <div class="main-content">
+            <%- include('../partials/header') %>
+            
+            <div class="content">
+                <div class="d-flex align-center justify-between mb-20">
+                    <h1 class="page-title">Oportunidades</h1>
+                    <div>
+                        <a href="/opportunities/list" class="btn btn-secondary mr-10">
+                            <i class="fas fa-list"></i> Visualizar em Lista
+                        </a>
+                        <a href="/opportunities/new" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Nova Oportunidade
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card mb-20">
+                    <div class="card-header">
+                        <h3 class="card-title">Filtros</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="kanban-filters">
+                            <div class="kanban-filter">
+                                <label for="filterSearch">Buscar</label>
+                                <input type="text" id="filterSearch" placeholder="Título, cliente...">
+                            </div>
+                            
+                            <div class="kanban-filter">
+                                <label for="filterCustomer">Cliente</label>
+                                <select id="filterCustomer">
+                                    <option value="">Todos os clientes</option>
+                                    <option value="1">Tech Solutions</option>
+                                    <option value="2">João Silva</option>
+                                    <option value="3">Ana Santos</option>
+                                </select>
+                            </div>
+                            
+                            <div class="kanban-filter">
+                                <label for="filterAssigned">Responsável</label>
+                                <select id="filterAssigned">
+                                    <option value="">Todos os responsáveis</option>
+                                    <option value="1">Vendedor 1</option>
+                                    <option value="2">Vendedor 2</option>
+                                    <option value="3">Vendedor 3</option>
+                                </select>
+                            </div>
+                            
+                            <div class="kanban-filter">
+                                <label for="filterPriority">Prioridade</label>
+                                <select id="filterPriority">
+                                    <option value="">Todas as prioridades</option>
+                                    <option value="high">Alta</option>
+                                    <option value="medium">Média</option>
+                                    <option value="low">Baixa</option>
+                                </select>
+                            </div>
+                            
+                            <div class="kanban-filter">
+                                <label>&nbsp;</label>
+                                <button id="applyFilters" class="btn btn-primary">Aplicar Filtros</button>
+                            </div>
+                        </div>
+                        
+                        <div id="activeFilters" class="mt-10" style="display: none;">
+                            <span class="mr-10">Filtros ativos:</span>
+                            <div class="filter-tags" style="display: inline-block;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="kanban-container">
+                    <!-- Prospecção -->
+                    <div class="kanban-column" data-stage="prospect">
+                        <div class="kanban-column-header prospect">
+                            <div>
+                                <div>Prospecção</div>
+                                <div class="column-value">R$ 0,00</div>
+                            </div>
+                            <span class="column-count">0</span>
+                        </div>
+                        <div class="kanban-cards" id="prospect-cards">
+                            <a href="/opportunities/new?stage=prospect" class="kanban-add-card" data-stage="prospect">
+                                <i class="fas fa-plus"></i> Adicionar oportunidade
+                            </a>
+                            <div class="quick-add-form" id="quick-form-prospect">
+                                <input type="text" placeholder="Título da oportunidade" class="quick-title">
+                                <select class="quick-customer">
+                                    <option value="">Selecione o cliente</option>
+                                    <option value="1">Tech Solutions</option>
+                                    <option value="2">João Silva</option>
+                                    <option value="3">Ana Santos</option>
+                                </select>
+                                <input type="text" placeholder="Valor (R$)" class="quick-value">
+                                <div class="quick-add-form-buttons">
+                                    <button class="save-btn">Salvar</button>
+                                    <button class="cancel-btn">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Qualificação -->
+                    <div class="kanban-column" data-stage="qualification">
+                        <div class="kanban-column-header qualification">
+                            <div>
+                                <div>Qualificação</div>
+                                <div class="column-value">R$ 499,95</div>
+                            </div>
+                            <span class="column-count">1</span>
+                        </div>
+                        <div class="kanban-cards" id="qualification-cards">
+                            <div class="kanban-card medium-priority" data-id="3">
+                                <div class="card-menu">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                    <div class="card-menu-options">
+                                        <div class="card-menu-option" data-action="view">
+                                            <i class="fas fa-eye"></i> Ver detalhes
+                                        </div>
+                                        <div class="card-menu-option" data-action="edit">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </div>
+                                        <div class="card-menu-option" data-action="delete">
+                                            <i class="fas fa-trash"></i> Excluir
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-title">Venda de produtos básicos</div>
+                                <div class="card-customer">
+                                    <i class="fas fa-building"></i> João Silva
+                                </div>
+                                <div class="opportunity-progress">
+                                    <div class="opportunity-progress-bar" style="width: 40%"></div>
+                                </div>
+                                <div class="card-tags">
+                                    <span class="card-tag">Novos produtos</span>
+                                    <span class="card-tag">Pequeno valor</span>
+                                </div>
+                                <div class="card-meta">
+                                    <div class="card-value">R$ 499,95</div>
+                                    <div class="d-flex align-center">
+                                        <div class="card-date">
+                                            <i class="far fa-calendar-alt"></i> 12/06/2025
+                                        </div>
+                                        <div class="card-avatar" title="Vendedor 1">V1</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/opportunities/new?stage=qualification" class="kanban-add-card" data-stage="qualification">
+                                <i class="fas fa-plus"></i> Adicionar oportunidade
+                            </a>
+                            <div class="quick-add-form" id="quick-form-qualification">
+                                <input type="text" placeholder="Título da oportunidade" class="quick-title">
+                                <select class="quick-customer">
+                                    <option value="">Selecione o cliente</option>
+                                    <option value="1">Tech Solutions</option>
+                                    <option value="2">João Silva</option>
+                                    <option value="3">Ana Santos</option>
+                                </select>
+                                <input type="text" placeholder="Valor (R$)" class="quick-value">
+                                <div class="quick-add-form-buttons">
+                                    <button class="save-btn">Salvar</button>
+                                    <button class="cancel-btn">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Proposta -->
+                    <div class="kanban-column" data-stage="proposal">
+                        <div class="kanban-column-header proposal">
+                            <div>
+                                <div>Proposta</div>
+                                <div class="column-value">R$ 12.800,00</div>
+                            </div>
+                            <span class="column-count">1</span>
+                        </div>
+                        <div class="kanban-cards" id="proposal-cards">
+                            <div class="kanban-card high-priority" data-id="1">
+                                <div class="card-menu">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                    <div class="card-menu-options">
+                                        <div class="card-menu-option" data-action="view">
+                                            <i class="fas fa-eye"></i> Ver detalhes
+                                        </div>
+                                        <div class="card-menu-option" data-action="edit">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </div>
+                                        <div class="card-menu-option" data-action="delete">
+                                            <i class="fas fa-trash"></i> Excluir
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-title">Renovação de contrato anual</div>
+                                <div class="card-customer">
+                                    <i class="fas fa-building"></i> Tech Solutions
+                                </div>
+                                <div class="opportunity-progress">
+                                    <div class="opportunity-progress-bar" style="width: 70%"></div>
+                                </div>
+                                <div class="card-tags">
+                                    <span class="card-tag">Renovação</span>
+                                    <span class="card-tag">Alto valor</span>
+                                </div>
+                                <div class="card-meta">
+                                    <div class="card-value">R$ 12.800,00</div>
+                                    <div class="d-flex align-center">
+                                        <div class="card-date">
+                                            <i class="far fa-calendar-alt"></i> 15/06/2025
+                                        </div>
+                                        <div class="card-avatar" title="Vendedor 1">V1</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/opportunities/new?stage=proposal" class="kanban-add-card" data-stage="proposal">
+                                <i class="fas fa-plus"></i> Adicionar oportunidade
+                            </a>
+                            <div class="quick-add-form" id="quick-form-proposal">
+                                <input type="text" placeholder="Título da oportunidade" class="quick-title">
+                                <select class="quick-customer">
+                                    <option value="">Selecione o cliente</option>
+                                    <option value="1">Tech Solutions</option>
+                                    <option value="2">João Silva</option>
+                                    <option value="3">Ana Santos</option>
+                                </select>
+                                <input type="text" placeholder="Valor (R$)" class="quick-value">
+                                <div class="quick-add-form-buttons">
+                                    <button class="save-btn">Salvar</button>
+                                    <button class="cancel-btn">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Negociação -->
+                    <div class="kanban-column" data-stage="negotiation">
+                        <div class="kanban-column-header negotiation">
+                            <div>
+                                <div>Negociação</div>
+                                <div class="column-value">R$ 5.000,00</div>
+                            </div>
+                            <span class="column-count">1</span>
+                        </div>
+                        <div class="kanban-cards" id="negotiation-cards">
+                            <div class="kanban-card medium-priority" data-id="2">
+                                <div class="card-menu">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                    <div class="card-menu-options">
+                                        <div class="card-menu-option" data-action="view">
+                                            <i class="fas fa-eye"></i> Ver detalhes
+                                        </div>
+                                        <div class="card-menu-option" data-action="edit">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </div>
+                                        <div class="card-menu-option" data-action="delete">
+                                            <i class="fas fa-trash"></i> Excluir
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-title">Projeto de consultoria</div>
+                                <div class="card-customer">
+                                    <i class="fas fa-building"></i> Tech Solutions
+                                </div>
+                                <div class="opportunity-progress">
+                                    <div class="opportunity-progress-bar" style="width: 60%"></div>
+                                </div>
+                                <div class="card-tags">
+                                    <span class="card-tag">Consultoria</span>
+                                    <span class="card-tag">Serviços</span>
+                                </div>
+                                <div class="card-meta">
+                                    <div class="card-value">R$ 5.000,00</div>
+                                    <div class="d-flex align-center">
+                                        <div class="card-date">
+                                            <i class="far fa-calendar-alt"></i> 28/05/2025
+                                        </div>
+                                        <div class="card-avatar" title="Vendedor 2">V2</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/opportunities/new?stage=negotiation" class="kanban-add-card" data-stage="negotiation">
+                                <i class="fas fa-plus"></i> Adicionar oportunidade
+                            </a>
+                            <div class="quick-add-form" id="quick-form-negotiation">
+                                <input type="text" placeholder="Título da oportunidade" class="quick-title">
+                                <select class="quick-customer">
+                                    <option value="">Selecione o cliente</option>
+                                    <option value="1">Tech Solutions</option>
+                                    <option value="2">João Silva</option>
+                                    <option value="3">Ana Santos</option>
+                                </select>
+                                <input type="text" placeholder="Valor (R$)" class="quick-value">
+                                <div class="quick-add-form-buttons">
+                                    <button class="save-btn">Salvar</button>
+                                    <button class="cancel-btn">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fechamento -->
+                    <div class="kanban-column" data-stage="closing">
+                        <div class="kanban-column-header closing">
+                            <div>
+                                <div>Fechamento</div>
+                                <div class="column-value">R$ 0,00</div>
+                            </div>
+                            <span class="column-count">0</span>
+                        </div>
+                        <div class="kanban-cards" id="closing-cards">
+                            <a href="/opportunities/new?stage=closing" class="kanban-add-card" data-stage="closing">
+                                <i class="fas fa-plus"></i> Adicionar oportunidade
+                            </a>
+                            <div class="quick-add-form" id="quick-form-closing">
+                                <input type="text" placeholder="Título da oportunidade" class="quick-title">
+                                <select class="quick-customer">
+                                    <option value="">Selecione o cliente</option>
+                                    <option value="1">Tech Solutions</option>
+                                    <option value="2">João Silva</option>
+                                    <option value="3">Ana Santos</option>
+                                </select>
+                                <input type="text" placeholder="Valor (R$)" class="quick-value">
+                                <div class="quick-add-form-buttons">
+                                    <button class="save-btn">Salvar</button>
+                                    <button class="cancel-btn">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Perdida -->
+                    <div class="kanban-column" data-stage="lost">
+                        <div class="kanban-column-header lost">
+                            <div>
+                                <div>Perdida</div>
+                                <div class="column-value">R$ 0,00</div>
+                            </div>
+                            <span class="column-count">0</span>
+                        </div>
+                        <div class="kanban-cards" id="lost-cards">
+                            <a href="/opportunities/new?stage=lost" class="kanban-add-card" data-stage="lost">
+                                <i class="fas fa-plus"></i> Adicionar oportunidade
+                            </a>
+                            <div class="quick-add-form" id="quick-form-lost">
+                                <input type="text" placeholder="Título da oportunidade" class="quick-title">
+                                <select class="quick-customer">
+                                    <option value="">Selecione o cliente</option>
+                                    <option value="1">Tech Solutions</option>
+                                    <option value="2">João Silva</option>
+                                    <option value="3">Ana Santos</option>
+                                </select>
+                                <input type="text" placeholder="Valor (R$)" class="quick-value">
+                                <div class="quick-add-form-buttons">
+                                    <button class="save-btn">Salvar</button>
+                                    <button class="cancel-btn">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Card Detail Modal -->
+    <div class="modal-backdrop" id="cardDetailModal">
+        <div class="card-detail-modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Detalhes da Oportunidade</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <div class="modal-section-title">Informações Básicas</div>
+                    <div class="info-row">
+                        <div class="info-label">Cliente:</div>
+                        <div class="info-value" id="detail-customer">Tech Solutions</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Responsável:</div>
+                        <div class="info-value" id="detail-assigned">Vendedor 1</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Valor:</div>
+                        <div class="info-value" id="detail-value">R$ 12.800,00</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Estágio:</div>
+                        <div class="info-value">
+                            <select class="stage-select" id="detail-stage">
+                                <option value="prospect">Prospecção</option>
+                                <option value="qualification">Qualificação</option>
+                                <option value="proposal" selected>Proposta</option>
+                                <option value="negotiation">Negociação</option>
+                                <option value="closing">Fechamento</option>
+                                <option value="lost">Perdida</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Probabilidade:</div>
+                        <div class="info-value" id="detail-probability">70%</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Data de Fechamento:</div>
+                        <div class="info-value" id="detail-close-date">15/06/2025</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Prioridade:</div>
+                        <div class="info-value" id="detail-priority">Alta</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Origem:</div>
+                        <div class="info-value" id="detail-source">Indicação</div>
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <div class="modal-section-title">Descrição</div>
+                    <p id="detail-description">Renovação do contrato anual de suporte e manutenção. Cliente está considerando aumentar o escopo dos serviços contratados.</p>
+                </div>
+                
+                <div class="modal-section">
+                    <div class="modal-section-title">Produtos</div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Preço</th>
+                                <th>Qtd</th>
+                                <th>Desconto</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detail-products">
+                            <tr>
+                                <td>Produto A</td>
+                                <td>R$ 5.000,00</td>
+                                <td>2</td>
+                                <td>10%</td>
+                                <td>R$ 9.000,00</td>
+                            </tr>
+                            <tr>
+                                <td>Produto B</td>
+                                <td>R$ 1.900,00</td>
+                                <td>2</td>
+                                <td>5%</td>
+                                <td>R$ 3.800,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="modal-section">
+                    <div class="modal-section-title">Atividades Recentes</div>
+                    <div class="activity-timeline" id="detail-activities">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-header">
+                                    <h4>Ligação - Discussão inicial</h4>
+                                    <span>20/05/2025</span>
+                                </div>
+                                <p>Ligação para discussão da renovação do contrato anual. Cliente demonstrou interesse em renovar, mas solicitou desconto.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-header">
+                                    <h4>Email - Envio de proposta</h4>
+                                    <span>21/05/2025</span>
+                                </div>
+                                <p>Enviado email com proposta comercial contendo 10% de desconto conforme solicitado na ligação.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="secondary" id="close-modal">Fechar</button>
+                <button class="primary" id="save-changes">Salvar Alterações</button>
+                <button class="primary" id="convert-sale">Converter em Venda</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+    
+    <!-- jQuery (necessário para alguns plugins Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Main JavaScript -->
+    <script src="/js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize Sortable for each kanban column
+            const columns = document.querySelectorAll('.kanban-cards');
+            const sortables = [];
+            
+            columns.forEach(column => {
+                const sortable = new Sortable(column, {
+                    group: 'opportunities',
+                    animation: 150,
+                    ghostClass: 'ghost-card',
+                    dragClass: 'dragging',
+                    filter: '.kanban-add-card, .quick-add-form',
+                    onStart: function() {
+                        // Close all card menus when dragging starts
+                        $('.card-menu-options').removeClass('active');
+                    },
+                    onEnd: function(evt) {
+                        const itemEl = evt.item;
+                        const opportunityId = itemEl.dataset.id;
+                        const newStage = evt.to.closest('.kanban-column').dataset.stage;
+                        const oldStage = evt.from.closest('.kanban-column').dataset.stage;
+                        
+                        if (newStage !== oldStage) {
+                            // Show loading overlay
+                            $('#loadingOverlay').addClass('show');
+                            
+                            // In real application, make API call to update opportunity stage
+                            console.log(`Moving opportunity ${opportunityId} from ${oldStage} to ${newStage}`);
+                            
+                            // Simulate API call delay
+                            setTimeout(() => {
+                                // Update progress bar based on new stage
+                                let progress = 0;
+                                switch(newStage) {
+                                    case 'prospect': progress = 20; break;
+                                    case 'qualification': progress = 40; break;
+                                    case 'proposal': progress = 60; break;
+                                    case 'negotiation': progress = 80; break;
+                                    case 'closing': progress = 90; break;
+                                    case 'lost': progress = 100; break;
+                                }
+                                
+                                $(itemEl).find('.opportunity-progress-bar').css('width', `${progress}%`);
+                                
+                                // Update column counts and values
+                                updateColumnCounts();
+                                
+                                // Hide loading overlay
+                                $('#loadingOverlay').removeClass('show');
+                            }, 500);
+                        }
+                    }
+                });
+                
+                sortables.push(sortable);
+            });
+            
+            // Toggle card menu options
+            $(document).on('click', '.card-menu', function(e) {
+                e.stopPropagation();
+                const options = $(this).find('.card-menu-options');
+                
+                // Close other open menus
+                $('.card-menu-options').not(options).removeClass('active');
+                
+                // Toggle this menu
+                options.toggleClass('active');
+            });
+            
+            // Close card menu when clicking outside
+            $(document).on('click', function() {
+                $('.card-menu-options').removeClass('active');
+            });
+            
+            // Card menu actions
+            $(document).on('click', '.card-menu-option', function(e) {
+                e.stopPropagation();
+                const action = $(this).data('action');
+                const card = $(this).closest('.kanban-card');
+                const opportunityId = card.data('id');
+                
+                switch(action) {
+                    case 'view':
+                        // Open detail modal
+                        openCardDetail(opportunityId);
+                        break;
+                    case 'edit':
+                        // Redirect to edit page
+                        window.location.href = `/opportunities/${opportunityId}/edit`;
+                        break;
+                    case 'delete':
+                        // Confirm and delete
+                        if (confirm('Tem certeza que deseja excluir esta oportunidade?')) {
+                            $('#loadingOverlay').addClass('show');
+                            
+                            // Simulate API call
+                            setTimeout(() => {
+                                card.remove();
+                                updateColumnCounts();
+                                $('#loadingOverlay').removeClass('show');
+                            }, 500);
+                        }
+                        break;
+                }
+                
+                // Close the menu
+                $(this).closest('.card-menu-options').removeClass('active');
+            });
+            
+            // Show quick add form
+            $(document).on('click', '.kanban-add-card', function() {
+                const stage = $(this).data('stage');
+                $(`#quick-form-${stage}`).addClass('show');
+                $(this).hide();
+            });
+            
+            // Cancel quick add
+            $(document).on('click', '.cancel-btn', function() {
+                const form = $(this).closest('.quick-add-form');
+                const stage = form.attr('id').replace('quick-form-', '');
+                
+                // Clear and hide form
+                form.find('input, select').val('');
+                form.removeClass('show');
+                
+                // Show add button again
+                form.siblings('.kanban-add-card').show();
+            });
+            
+            // Save quick add
+            $(document).on('click', '.save-btn', function() {
+                const form = $(this).closest('.quick-add-form');
+                const stage = form.attr('id').replace('quick-form-', '');
+                
+                const title = form.find('.quick-title').val();
+                const customerId = form.find('.quick-customer').val();
+                const customerName = form.find('.quick-customer option:selected').text();
+                const value = form.find('.quick-value').val();
+                
+                // Validate
+                if (!title) {
+                    alert('Por favor, informe o título da oportunidade.');
+                    return;
+                }
+                
+                if (!customerId) {
+                    alert('Por favor, selecione um cliente.');
+                    return;
+                }
+                
+                $('#loadingOverlay').addClass('show');
+                
+                // Simulate API call to create opportunity
+                setTimeout(() => {
+                    // Generate random ID for demo
+                    const newId = Math.floor(Math.random() * 1000) + 4;
+                    
+                    // Create new card
+                    const newCard = `
+                        <div class="kanban-card medium-priority" data-id="${newId}">
+                            <div class="card-menu">
+                                <i class="fas fa-ellipsis-v"></i>
+                                <div class="card-menu-options">
+                                    <div class="card-menu-option" data-action="view">
+                                        <i class="fas fa-eye"></i> Ver detalhes
+                                    </div>
+                                    <div class="card-menu-option" data-action="edit">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </div>
+                                    <div class="card-menu-option" data-action="delete">
+                                        <i class="fas fa-trash"></i> Excluir
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-title">${title}</div>
+                            <div class="card-customer">
+                                <i class="fas fa-building"></i> ${customerName}
+                            </div>
+                            <div class="opportunity-progress">
+                                <div class="opportunity-progress-bar" style="width: 20%"></div>
+                            </div>
+                            <div class="card-tags">
+                                <span class="card-tag">Nova</span>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-value">${formatCurrency(value)}</div>
+                                <div class="d-flex align-center">
+                                    <div class="card-date">
+                                        <i class="far fa-calendar-alt"></i> ${formatDate(new Date().setDate(new Date().getDate() + 30))}
+                                    </div>
+                                    <div class="card-avatar" title="Vendedor 1">V1</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Insert new card before the add button
+                    form.before(newCard);
+                    
+                    // Clear and hide form
+                    form.find('input, select').val('');
+                    form.removeClass('show');
+                    
+                    // Show add button again
+                    form.siblings('.kanban-add-card').show();
+                    
+                    // Update counts
+                    updateColumnCounts();
+                    
+                    $('#loadingOverlay').removeClass('show');
+                }, 500);
+            });
+            
+            // Card detail modal
+            function openCardDetail(opportunityId) {
+                // In a real application, fetch opportunity details from API
+                const cardData = {
+                    1: {
+                        title: 'Renovação de contrato anual',
+                        customer: 'Tech Solutions',
+                        assigned: 'Vendedor 1',
+                        value: 'R$ 12.800,00',
+                        stage: 'proposal',
+                        probability: '70%',
+                        closeDate: '15/06/2025',
+                        priority: 'Alta',
+                        source: 'Indicação',
+                        description: 'Renovação do contrato anual de suporte e manutenção. Cliente está considerando aumentar o escopo dos serviços contratados.',
+                        products: [
+                            { name: 'Produto A', price: 'R$ 5.000,00', quantity: 2, discount: '10%', total: 'R$ 9.000,00' },
+                            { name: 'Produto B', price: 'R$ 1.900,00', quantity: 2, discount: '5%', total: 'R$ 3.800,00' }
+                        ],
+                        activities: [
+                            {
+                                type: 'phone',
+                                title: 'Ligação - Discussão inicial',
+                                date: '20/05/2025',
+                                description: 'Ligação para discussão da renovação do contrato anual. Cliente demonstrou interesse em renovar, mas solicitou desconto.'
+                            },
+                            {
+                                type: 'email',
+                                title: 'Email - Envio de proposta',
+                                date: '21/05/2025',
+                                description: 'Enviado email com proposta comercial contendo 10% de desconto conforme solicitado na ligação.'
+                            }
+                        ]
+                    },
+                    2: {
+                        title: 'Projeto de consultoria',
+                        customer: 'Tech Solutions',
+                        assigned: 'Vendedor 2',
+                        value: 'R$ 5.000,00',
+                        stage: 'negotiation',
+                        probability: '60%',
+                        closeDate: '28/05/2025',
+                        priority: 'Média',
+                        source: 'Website',
+                        description: 'Projeto de consultoria para otimização de processos internos. Cliente precisa melhorar a eficiência operacional.',
+                        products: [
+                            { name: 'Consultoria (40h)', price: 'R$ 150,00/h', quantity: 40, discount: '0%', total: 'R$ 6.000,00' }
+                        ],
+                        activities: [
+                            {
+                                type: 'meeting',
+                                title: 'Reunião - Levantamento de requisitos',
+                                date: '10/05/2025',
+                                description: 'Reunião inicial para entender as necessidades do cliente e definir o escopo do projeto.'
+                            },
+                            {
+                                type: 'email',
+                                title: 'Email - Proposta inicial',
+                                date: '15/05/2025',
+                                description: 'Enviada proposta inicial com base no levantamento realizado.'
+                            }
+                        ]
+                    },
+                    3: {
+                        title: 'Venda de produtos básicos',
+                        customer: 'João Silva',
+                        assigned: 'Vendedor 1',
+                        value: 'R$ 499,95',
+                        stage: 'qualification',
+                        probability: '40%',
+                        closeDate: '12/06/2025',
+                        priority: 'Média',
+                        source: 'Ligação fria',
+                        description: 'Pacote de produtos básicos para novo cliente. Primeiro contato realizado por telefone.',
+                        products: [
+                            { name: 'Produto C', price: 'R$ 249,95', quantity: 2, discount: '0%', total: 'R$ 499,90' }
+                        ],
+                        activities: [
+                            {
+                                type: 'phone',
+                                title: 'Ligação - Primeiro contato',
+                                date: '05/05/2025',
+                                description: 'Primeiro contato com o cliente. Demonstrou interesse nos produtos básicos.'
+                            }
+                        ]
+                    }
+                };
+                
+                const opportunity = cardData[opportunityId];
+                
+                // If opportunity exists, populate modal
+                if (opportunity) {
+                    $('#modal-title').text(opportunity.title);
+                    $('#detail-customer').text(opportunity.customer);
+                    $('#detail-assigned').text(opportunity.assigned);
+                    $('#detail-value').text(opportunity.value);
+                    $('#detail-stage').val(opportunity.stage);
+                    $('#detail-probability').text(opportunity.probability);
+                    $('#detail-close-date').text(opportunity.closeDate);
+                    $('#detail-priority').text(opportunity.priority);
+                    $('#detail-source').text(opportunity.source);
+                    $('#detail-description').text(opportunity.description);
+                    
+                    // Products
+                    let productsHtml = '';
+                    opportunity.products.forEach(product => {
+                        productsHtml += `
+                            <tr>
+                                <td>${product.name}</td>
+                                <td>${product.price}</td>
+                                <td>${product.quantity}</td>
+                                <td>${product.discount}</td>
+                                <td>${product.total}</td>
+                            </tr>
+                        `;
+                    });
+                    $('#detail-products').html(productsHtml);
+                    
+                    // Activities
+                    let activitiesHtml = '';
+                    opportunity.activities.forEach(activity => {
+                        let iconClass = 'fas fa-comment';
+                        switch(activity.type) {
+                            case 'phone': iconClass = 'fas fa-phone'; break;
+                            case 'email': iconClass = 'fas fa-envelope'; break;
+                            case 'meeting': iconClass = 'fas fa-users'; break;
+                        }
+                        
+                        activitiesHtml += `
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="${iconClass}"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-header">
+                                        <h4>${activity.title}</h4>
+                                        <span>${activity.date}</span>
+                                    </div>
+                                    <p>${activity.description}</p>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    $('#detail-activities').html(activitiesHtml);
+                    
+                    // Show modal
+                    $('#cardDetailModal').addClass('show');
+                }
+            }
+            
+            // Close modal
+            $('.modal-close, #close-modal').click(function() {
+                $('#cardDetailModal').removeClass('show');
+            });
+            
+            // Save changes button
+            $('#save-changes').click(function() {
+                const newStage = $('#detail-stage').val();
+                const opportunityId = $('#modal-title').text() === 'Renovação de contrato anual' ? 1 : 
+                                      $('#modal-title').text() === 'Projeto de consultoria' ? 2 : 3;
+                
+                $('#loadingOverlay').addClass('show');
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Move card to new column
+                    const card = $(`.kanban-card[data-id="${opportunityId}"]`);
+                    const oldStage = card.closest('.kanban-column').data('stage');
+                    
+                    if (newStage !== oldStage) {
+                        // Remove from old column
+                        card.detach();
+                        
+                        // Add to new column, before the add button
+                        $(`#${newStage}-cards .kanban-add-card`).before(card);
+                        
+                        // Update progress bar
+                        let progress = 0;
+                        switch(newStage) {
+                            case 'prospect': progress = 20; break;
+                            case 'qualification': progress = 40; break;
+                            case 'proposal': progress = 60; break;
+                            case 'negotiation': progress = 80; break;
+                            case 'closing': progress = 90; break;
+                            case 'lost': progress = 100; break;
+                        }
+                        
+                        card.find('.opportunity-progress-bar').css('width', `${progress}%`);
+                        
+                        // Update counts
+                        updateColumnCounts();
+                    }
+                    
+                    $('#loadingOverlay').removeClass('show');
+                    $('#cardDetailModal').removeClass('show');
+                }, 500);
+            });
+            
+            // Convert to sale button
+            $('#convert-sale').click(function() {
+                if (confirm('Tem certeza que deseja converter esta oportunidade em venda?')) {
+                    $('#loadingOverlay').addClass('show');
+                    
+                    // Simulate API call
+                    setTimeout(() => {
+                        alert('Oportunidade convertida em venda com sucesso!');
+                        
+                        // Close modal
+                        $('#cardDetailModal').removeClass('show');
+                        
+                        // Remove card from kanban
+                        const opportunityId = $('#modal-title').text() === 'Renovação de contrato anual' ? 1 : 
+                                          $('#modal-title').text() === 'Projeto de consultoria' ? 2 : 3;
+                        
+                        $(`.kanban-card[data-id="${opportunityId}"]`).remove();
+                        
+                        // Update counts
+                        updateColumnCounts();
+                        
+                        $('#loadingOverlay').removeClass('show');
+                    }, 500);
+                }
+            });
+            
+            // Apply filters
+            $('#applyFilters').click(function() {
+                const search = $('#filterSearch').val().toLowerCase();
+                const customer = $('#filterCustomer').val();
+                const assigned = $('#filterAssigned').val();
+                const priority = $('#filterPriority').val();
+                
+                let hasFilters = false;
+                let filterTags = '';
+                
+                if (search) {
+                    hasFilters = true;
+                    filterTags += `<span class="card-tag">Busca: ${search}</span>`;
+                }
+                
+                if (customer) {
+                    hasFilters = true;
+                    filterTags += `<span class="card-tag">Cliente: ${$('#filterCustomer option:selected').text()}</span>`;
+                }
+                
+                if (assigned) {
+                    hasFilters = true;
+                    filterTags += `<span class="card-tag">Responsável: ${$('#filterAssigned option:selected').text()}</span>`;
+                }
+                
+                if (priority) {
+                    hasFilters = true;
+                    let priorityText = priority === 'high' ? 'Alta' : priority === 'medium' ? 'Média' : 'Baixa';
+                    filterTags += `<span class="card-tag">Prioridade: ${priorityText}</span>`;
+                }
+                
+                if (hasFilters) {
+                    $('#activeFilters').show();
+                    $('.filter-tags').html(filterTags);
+                } else {
+                    $('#activeFilters').hide();
+                }
+                
+                // Apply filters to cards
+                $('.kanban-card').each(function() {
+                    let show = true;
+                    
+                    if (search) {
+                        const cardTitle = $(this).find('.card-title').text().toLowerCase();
+                        const cardCustomer = $(this).find('.card-customer').text().toLowerCase();
+                        if (!cardTitle.includes(search) && !cardCustomer.includes(search)) {
+                            show = false;
+                        }
+                    }
+                    
+                    if (customer && show) {
+                        // In a real app, you would check the customer ID
+                        // For the demo, we'll just check the name
+                        const cardCustomer = $(this).find('.card-customer').text();
+                        const customerOption = $('#filterCustomer option:selected').text();
+                        if (!cardCustomer.includes(customerOption)) {
+                            show = false;
+                        }
+                    }
+                    
+                    if (assigned && show) {
+                        // In a real app, check assigned ID
+                        // For demo, check the avatar text
+                        const cardAvatar = $(this).find('.card-avatar').text();
+                        const matchVendor = assigned === '1' && cardAvatar === 'V1' ||
+                                           assigned === '2' && cardAvatar === 'V2' ||
+                                           assigned === '3' && cardAvatar === 'V3';
+                        if (!matchVendor) {
+                            show = false;
+                        }
+                    }
+                    
+                    if (priority && show) {
+                        const isPriorityMatch = 
+                            (priority === 'high' && $(this).hasClass('high-priority')) ||
+                            (priority === 'medium' && $(this).hasClass('medium-priority')) ||
+                            (priority === 'low' && $(this).hasClass('low-priority'));
+                        
+                        if (!isPriorityMatch) {
+                            show = false;
+                        }
+                    }
+                    
+                    // Show/hide card
+                    $(this).toggle(show);
+                });
+                
+                // Update counts
+                updateColumnCounts();
+            });
+            
+            // Update column counts and values
+            function updateColumnCounts() {
+                $('.kanban-column').each(function() {
+                    const stage = $(this).data('stage');
+                    const cards = $(this).find('.kanban-card:visible');
+                    const count = cards.length;
+                    
+                    // Update count
+                    $(this).find('.column-count').text(count);
+                    
+                    // Calculate total value
+                    let totalValue = 0;
+                    cards.each(function() {
+                        const valueText = $(this).find('.card-value').text();
+                        totalValue += parseCurrency(valueText);
+                    });
+                    
+                    // Update value
+                    $(this).find('.column-value').text(formatCurrency(totalValue));
+                });
+            }
+            
+            // Helper function to format currency
+            function formatCurrency(value) {
+                if (typeof value === 'string') {
+                    value = parseCurrency(value);
+                }
+                
+                return 'R$ ' + value.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+,)/g, '$1.');
+            }
+            
+            // Helper function to parse currency
+            function parseCurrency(value) {
+                if (typeof value === 'number') return value;
+                
+                return parseFloat(value.replace(/[^\d,.-]/g, '').replace(',', '.')) || 0;
+            }
+            
+            // Helper function to format date
+            function formatDate(date) {
+                const d = new Date(date);
+                const day = String(d.getDate()).padStart(2, '0');
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const year = d.getFullYear();
+                
+                return `${day}/${month}/${year}`;
+            }
+            
+            // Initialize column counts
+            updateColumnCounts();
+        });
+    </script>
+</body>
+</html>

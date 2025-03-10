@@ -1,0 +1,41 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-logo">
+            <h1>CRM Sistema</h1>
+        </div>
+        
+        <h2 class="auth-heading">Registre-se</h2>
+        
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="name" class="form-label">Nome Completo</label>
+                <input type="text" id="name" class="form-control" placeholder="Seu nome completo" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" placeholder="Seu email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" id="password" class="form-control" placeholder="Sua senha" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword" class="form-label">Confirmar Senha</label>
+                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirme sua senha" required>
+            </div>
+            
+            <div id="registerError" class="form-error mb-10"></div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+            </div>
+        </form>
+        
+        <div class="auth-footer">
+            <p>Já tem uma conta? <a href="/login">Faça login</a></p>
+        </div>
+    </div>
+</div>

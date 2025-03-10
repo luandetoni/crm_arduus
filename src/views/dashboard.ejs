@@ -1,0 +1,234 @@
+<div class="dashboard">
+    <%- include('partials/sidebar') %>
+    
+    <div class="main-content">
+        <%- include('partials/header') %>
+        
+        <div class="content">
+            <div class="d-flex align-center justify-between mb-20">
+                <h1 class="page-title">Dashboard</h1>
+                <div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                </div>
+            </div>
+            
+            <div class="stat-cards">
+                <div class="stat-card">
+                    <div class="stat-card-icon primary">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-card-info">
+                        <h3>248</h3>
+                        <p>Total de Clientes</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-icon success">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-card-info">
+                        <h3>R$ 38.250,00</h3>
+                        <p>Vendas do Mês</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-icon warning">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="stat-card-info">
+                        <h3>42</h3>
+                        <p>Oportunidades Abertas</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-icon info">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-card-info">
+                        <h3>18</h3>
+                        <p>Tarefas Pendentes</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Oportunidades Recentes</h3>
+                            <a href="/opportunities" class="btn btn-primary">Ver Todas</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Cliente</th>
+                                            <th>Estágio</th>
+                                            <th>Valor</th>
+                                            <th>Previsão de Fechamento</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tech Solutions</td>
+                                            <td><span class="status pending">Proposta</span></td>
+                                            <td>R$ 12.800,00</td>
+                                            <td>15/06/2025</td>
+                                            <td class="actions">
+                                                <a href="#" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>João Silva</td>
+                                            <td><span class="status active">Qualificação</span></td>
+                                            <td>R$ 5.400,00</td>
+                                            <td>22/06/2025</td>
+                                            <td class="actions">
+                                                <a href="#" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Oliveira Imports</td>
+                                            <td><span class="status pending">Negociação</span></td>
+                                            <td>R$ 18.900,00</td>
+                                            <td>10/06/2025</td>
+                                            <td class="actions">
+                                                <a href="#" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Tarefas Recentes</h3>
+                            <a href="/tasks" class="btn btn-primary">Ver Todas</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Título</th>
+                                            <th>Status</th>
+                                            <th>Prioridade</th>
+                                            <th>Vencimento</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Ligar para cliente sobre renovação</td>
+                                            <td><span class="status pending">Pendente</span></td>
+                                            <td><span class="text-danger">Alta</span></td>
+                                            <td>Hoje</td>
+                                            <td class="actions">
+                                                <a href="#" class="btn-icon"><i class="fas fa-check"></i></a>
+                                                <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Preparar proposta de consultoria</td>
+                                            <td><span class="status active">Em andamento</span></td>
+                                            <td><span class="text-warning">Média</span></td>
+                                            <td>28/05/2025</td>
+                                            <td class="actions">
+                                                <a href="#" class="btn-icon"><i class="fas fa-check"></i></a>
+                                                <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Verificar feedback do cliente</td>
+                                            <td><span class="status pending">Pendente</span></td>
+                                            <td><span class="text-primary">Baixa</span></td>
+                                            <td>01/06/2025</td>
+                                            <td class="actions">
+                                                <a href="#" class="btn-icon"><i class="fas fa-check"></i></a>
+                                                <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Clientes Recentes</h3>
+                            <a href="/customers" class="btn btn-primary">Ver Todos</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Email</th>
+                                            <th>Telefone</th>
+                                            <th>Status</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tech Solutions</td>
+                                            <td>contato@techsolutions.com.br</td>
+                                            <td>(11) 3333-4444</td>
+                                            <td><span class="status active">Ativo</span></td>
+                                            <td class="actions">
+                                                <a href="#" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ana Santos</td>
+                                            <td>ana.santos@example.com</td>
+                                            <td>(21) 97777-4321</td>
+                                            <td><span class="status active">Ativo</span></td>
+                                            <td class="actions">
+                                                <a href="#" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>João Silva</td>
+                                            <td>joao.silva@example.com</td>
+                                            <td>(11) 95555-1234</td>
+                                            <td><span class="status active">Ativo</span></td>
+                                            <td class="actions">
+                                                <a href="#" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

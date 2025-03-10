@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+</head>
+<body>
+    <div class="dashboard">
+        <%- include('../partials/sidebar') %>
+        
+        <div class="main-content">
+            <%- include('../partials/header') %>
+            
+            <div class="content">
+                <div class="d-flex align-center justify-between mb-20">
+                    <div>
+                        <h1 class="page-title">Detalhes da Oportunidade</h1>
+                        <p>ID: <%= opportunityId %></p>
+                    </div>
+                    <div>
+                        <button id="convertBtn" class="btn btn-success">
+                            <i class="fas fa-check-circle"></i> Converter em Venda
+                        </button>
+                        <a href="/opportunities/<%= opportunityId %>/edit" class="btn btn-primary">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a href="/opportunities" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> Voltar
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col" style="flex: 0 0 300px;">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="opportunity-header mb-20">
+                                    <div class="opportunity-status">
+                                        <span class="status pending">Proposta</span>
+                                        <div class="opportunity-progress-bar">
+                                            <div class="progress-bar" style="width: 50%;"></div>
+                                        </div>
+                                    </div>
+                                    <h3>Renovação de contrato anual</h3>
+                                    <p class="text-secondary">Silva & Cia</p>
+                                </div>
+                                
+                                <div class="opportunity-info mb-20">
+                                    <div class="info-item">
+                                        <span class="info-label">Valor:</span>
+                                        <span class="info-value">R$ 12.800,00</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Probabilidade:</span>
+                                        <span class="info-value">50%</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Data prevista:</span>
+                                        <span class="info-value">15/06/2025</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Responsável:</span>
+                                        <span class="info-value">Vendedor 1</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Criado em:</span>
+                                        <span class="info-value">20/05/2025</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Origem:</span>
+                                        <span class="info-value">Indicação</span>
+                                    </div>
+                                </div>
+                                
+                                <h4 class="mb-10">Cliente</h4>
+                                <div class="customer-card mb-20">
+                                    <div class="d-flex align-center">
+                                        <div style="width: 40px; height: 40px; background-color: #4a6cf7; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; margin-right: 10px;">
+                                            JS
+                                        </div>
+                                        <div>
+                                            <h5 class="mb-0">João Silva</h5>
+                                            <p class="text-secondary mb-0">Silva & Cia</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-10">
+                                        <p class="mb-5"><i class="fas fa-envelope"></i> joao.silva@example.com</p>
+                                        <p class="mb-0"><i class="fas fa-phone"></i> (11) 95555-1234</p>
+                                    </div>
+                                    <div class="mt-10">
+                                        <a href="/customers/1" class="btn btn-sm btn-outline">Ver Cliente</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-20">
+                            <div class="card-header">
+                                <h3 class="card-title">Próximas Etapas</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="stage-timeline">
+                                    <div class="stage-item completed">
+                                        <div class="stage-icon"><i class="fas fa-check"></i></div>
+                                        <div class="stage-content">
+                                            <h4>Prospecção</h4>
+                                            <p>Identificação inicial</p>
+                                        </div>
+                                    </div>
+                                    <div class="stage-item completed">
+                                        <div class="stage-icon"><i class="fas fa-check"></i></div>
+                                        <div class="stage-content">
+                                            <h4>Qualificação</h4>
+                                            <p>Cliente qualificado</p>
+                                        </div>
+                                    </div>
+                                    <div class="stage-item active">
+                                        <div class="stage-icon"><i class="fas fa-spinner"></i></div>
+                                        <div class="stage-content">
+                                            <h4>Proposta</h4>
+                                            <p>Proposta enviada</p>
+                                        </div>
+                                    </div>
+                                    <div class="stage-item">
+                                        <div class="stage-icon"><i class="fas fa-hourglass"></i></div>
+                                        <div class="stage-content">
+                                            <h4>Negociação</h4>
+                                            <p>Discutir termos</p>
+                                        </div>
+                                    </div>
+                                    <div class="stage-item">
+                                        <div class="stage-icon"><i class="fas fa-hourglass"></i></div>
+                                        <div class="stage-content">
+                                            <h4>Fechamento</h4>
+                                            <p>Confirmação e documentos</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-15">
+                                    <button id="advanceStageBtn" class="btn btn-primary btn-block">
+                                        <i class="fas fa-arrow-right"></i> Avançar para Negociação
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col" style="flex: 1;">
+                        <div class="card">
+                            <div class="card-header d-flex justify-between align-center">
+                                <h3 class="card-title">Produtos</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Produto</th>
+                                                <th>Preço Unitário</th>
+                                                <th>Quantidade</th>
+                                                <th>Desconto</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Produto A</td>
+                                                <td>R$ 5.000,00</td>
+                                                <td>2</td>
+                                                <td>10%</td>
+                                                <td>R$ 9.000,00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Produto B</td>
+                                                <td>R$ 1.900,00</td>
+                                                <td>2</td>
+                                                <td>5%</td>
+                                                <td>R$ 3.800,00</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="4" class="text-right"><strong>Total:</strong></td>
+                                                <td>R$ 12.800,00</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-20">
+                            <div class="card-header d-flex justify-between align-center">
+                                <h3 class="card-title">Atividades</h3>
+                                <div>
+                                    <button id="addActivityBtn" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i> Nova Atividade
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="activity-timeline">
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <i class="fas fa-phone"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-header">
+                                                <h4>Ligação - Discussão inicial</h4>
+                                                <span>20/05/2025</span>
+                                            </div>
+                                            <p>Ligação para discussão da renovação do contrato anual. Cliente demonstrou interesse em renovar, mas solicitou desconto.</p>
+                                            <p><strong>Resultado:</strong> Cliente solicitou proposta por email.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-header">
+                                                <h4>Email - Envio de proposta</h4>
+                                                <span>21/05/2025</span>
+                                            </div>
+                                            <p>Enviado email com proposta comercial contendo 10% de desconto conforme solicitado na ligação.</p>
+                                            <p><a href="#" class="text-primary">Ver anexo: Proposta Comercial.pdf</a></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-header">
+                                                <h4>Reunião agendada - Discussão da proposta</h4>
+                                                <span>25/05/2025</span>
+                                            </div>
+                                            <p>Agendada reunião para discussão detalhada da proposta enviada. Local: Escritório do cliente às 14h.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-20">
+                            <div class="card-header d-flex justify-between align-center">
+                                <h3 class="card-title">Tarefas</h3>
+                                <div>
+                                    <a href="/tasks/new?opportunity=<%= opportunityId %>" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i> Nova Tarefa
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Título</th>
+                                                <th>Status</th>
+                                                <th>Prioridade</th>
+                                                <th>Vencimento</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Preparar documentação</td>
+                                                <td><span class="status pending">Pendente</span></td>
+                                                <td><span class="text-danger">Alta</span></td>
+                                                <td>24/05/2025</td>
+                                                <td class="actions">
+                                                    <a href="/tasks/3" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                    <a href="/tasks/3/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                                    <a href="#" class="btn-icon complete-task" data-id="3"><i class="fas fa-check"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Agendar reunião de acompanhamento</td>
+                                                <td><span class="status active">Concluída</span></td>
+                                                <td><span class="text-warning">Média</span></td>
+                                                <td>22/05/2025</td>
+                                                <td class="actions">
+                                                    <a href="/tasks/4" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                    <a href="/tasks/4/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-20">
+                            <div class="card-header d-flex justify-between align-center">
+                                <h3 class="card-title">Documentos</h3>
+                                <div>
+                                    <form id="uploadDocumentForm" style="display: inline-block;">
+                                        <input type="file" id="documentFile" style="display: none;" />
+                                        <button type="button" id="uploadDocumentBtn" class="btn btn-primary">
+                                            <i class="fas fa-upload"></i> Enviar Documento
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Tipo</th>
+                                                <th>Enviado por</th>
+                                                <th>Data</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Proposta Comercial.pdf</td>
+                                                <td>PDF</td>
+                                                <td>Vendedor 1</td>
+                                                <td>21/05/2025</td>
+                                                <td class="actions">
+                                                    <a href="#" class="btn-icon"><i class="fas fa-download"></i></a>
+                                                    <a href="#" class="btn-icon delete-document" data-id="1"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Contrato Atual.pdf</td>
+                                                <td>PDF</td>
+                                                <td>Vendedor 1</td>
+                                                <td>20/05/2025</td>
+                                                <td class="actions">
+                                                    <a href="#" class="btn-icon"><i class="fas fa-download"></i></a>
+                                                    <a href="#" class="btn-icon delete-document" data-id="2"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-20">
+                            <div class="card-header">
+                                <h3 class="card-title">Notas</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group mb-20">
+                                    <textarea id="opportunityNotes" class="form-control" rows="4" placeholder="Adicionar notas sobre a oportunidade...">Cliente interessado em renovar contrato anual. Solicitou desconto de 10% sobre o valor atual. É necessário enviar proposta atualizada após a reunião do dia 25/05.</textarea>
+                                </div>
+                                <div class="text-right">
+                                    <button id="saveNotesBtn" class="btn btn-primary">Salvar Notas</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar atividade -->
+    <div id="activityModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nova Atividade</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="activityForm">
+                    <div class="form-group">
+                        <label for="activityType" class="form-label">Tipo de Atividade</label>
+                        <select id="activityType" name="type" class="form-control" required>
+                            <option value="call">Ligação</option>
+                            <option value="meeting">Reunião</option>
+                            <option value="email">Email</option>
+                            <option value="note">Nota</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="activityTitle" class="form-label">Título</label>
+                        <input type="text" id="activityTitle" name="title" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="activityDescription" class="form-label">Descrição</label>
+                        <textarea id="activityDescription" name="description" class="form-control" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="activityResult" class="form-label">Resultado</label>
+                        <textarea id="activityResult" name="result" class="form-control" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelActivityBtn">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveActivityBtn">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+    /* Estilos para timeline de atividades */
+    .activity-timeline {
+        position: relative;
+        padding: 20px 0;
+    }
+    
+    .activity-timeline:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 20px;
+        width: 2px;
+        background-color: #e0e0e0;
+        z-index: 1;
+    }
+    
+    .activity-item {
+        position: relative;
+        margin-bottom: 30px;
+        padding-left: 60px;
+    }
+    
+    .activity-icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+    }
+    
+    .activity-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .activity-header h4 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    
+    .activity-header span {
+        font-size: 14px;
+        color: var(--secondary-color);
+    }
+    
+    .activity-content {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .activity-content p:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* Estilos para o modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    
+    .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 0;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        width: 500px;
+        max-width: 90%;
+    }
+    
+    .modal-header {
+        padding: 15px 20px;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .modal-header h3 {
+        margin: 0;
+        font-size: 18px;
+    }
+    
+    .close-modal {
+        font-size: 24px;
+        font-weight: bold;
+        color: #888;
+        cursor: pointer;
+    }
+    
+    .close-modal:hover {
+        color: #555;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+    
+    .modal-footer {
+        padding: 15px 20px;
+        border-top: 1px solid #e0e0e0;
+        text-align: right;
+    }
+    
+    /* Estilos para timeline de estágios */
+    .stage-timeline {
+        position: relative;
+        padding: 10px 0;
+    }
+    
+    .stage-timeline:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 15px;
+        width: 2px;
+        background-color: #e0e0e0;
+        z-index: 1;
+    }
+    
+    .stage-item {
+        position: relative;
+        margin-bottom: 15px;
+        padding-left: 45px;
+    }
+    
+    .stage-icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #e0e0e0;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+    }
+    
+    .stage-item.completed .stage-icon {
+        background-color: #4caf50;
+    }
+    
+    .stage-item.active .stage-icon {
+        background-color: #2196f3;
+    }
+    
+    .stage-content h4 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    
+    .stage-content p {
+        margin: 5px 0 0;
+        font-size: 12px;
+        color: var(--secondary-color);
+    }
+    
+    /* Estilos para o cabeçalho da oportunidade */
+    .opportunity-header h3 {
+        margin: 5px 0;
+        font-size: 18px;
+    }
+    
+    .opportunity-status {
+        margin-bottom: 10px;
+    }
+    
+    .opportunity-progress-bar {
+        height: 5px;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        margin-top: 5px;
+    }
+    
+    .progress-bar {
+        height: 100%;
+        background-color: #4a6cf7;
+        border-radius: 5px;
+    }
+    
+    .opportunity-info .info-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+    
+    .info-label {
+        color: var(--secondary-color);
+    }
+    
+    .info-value {
+        font-weight: 500;
+    }
+    
+    .customer-card {
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    </style>
+
+    <!-- jQuery (necessário para alguns plugins Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Main JavaScript -->
+    <script src="/js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Modal para adicionar atividade
+            const modal = document.getElementById('activityModal');
+            const addActivityBtn = document.getElementById('addActivityBtn');
+            const cancelActivityBtn = document.getElementById('cancelActivityBtn');
+            const closeModalBtn = document.querySelector('.close-modal');
+            const saveActivityBtn = document.getElementById('saveActivityBtn');
+            
+            addActivityBtn.addEventListener('click', function() {
+                modal.style.display = 'block';
+                document.getElementById('activityForm').reset();
+            });
+            
+            function closeModal() {
+                modal.style.display = 'none';
+            }
+            
+            closeModalBtn.addEventListener('click', closeModal);
+            cancelActivityBtn.addEventListener('click', closeModal);
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            saveActivityBtn.addEventListener('click', function() {
+                // Validar formulário
+                const form = document.getElementById('activityForm');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+                
+                // Obter dados do formulário
+                const type = document.getElementById('activityType').value;
+                const title = document.getElementById('activityTitle').value;
+                const description = document.getElementById('activityDescription').value;
+                const result = document.getElementById('activityResult').value;
+                
+                // Em uma aplicação real, você enviaria esses dados para o servidor
+                console.log('Nova atividade:', { type, title, description, result });
+                
+                // Simular adição de atividade à timeline
+                const today = new Date().toLocaleDateString('pt-BR', { 
+                    year: 'numeric', 
+                    month: '2-digit', 
+                    day: '2-digit' 
+                }).replace(/\//g, '/');
+                
+                let iconClass = 'fas fa-comment';
+                switch (type) {
+                    case 'call':
+                        iconClass = 'fas fa-phone';
+                        break;
+                    case 'meeting':
+                        iconClass = 'fas fa-users';
+                        break;
+                    case 'email':
+                        iconClass = 'fas fa-envelope';
+                        break;
+                }
+                
+                const newActivity = `
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="${iconClass}"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-header">
+                                <h4>${title}</h4>
+                                <span>${today}</span>
+                            </div>
+                            <p>${description}</p>
+                            ${result ? `<p><strong>Resultado:</strong> ${result}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                $('.activity-timeline').prepend(newActivity);
+                
+                closeModal();
+                alert('Atividade adicionada com sucesso!');
+            });
+            
+            // Avançar estágio
+            $('#advanceStageBtn').click(function() {
+                if (confirm('Tem certeza que deseja avançar esta oportunidade para o estágio de Negociação?')) {
+                    // Em uma aplicação real, você atualizaria o estágio no servidor
+                    console.log('Avançando estágio para Negociação');
+                    
+                    // Atualizar a interface
+                    $('.stage-item.active').removeClass('active').addClass('completed')
+                        .find('.stage-icon i').removeClass('fa-spinner').addClass('fa-check');
+                    
+                    $('.stage-item:contains("Negociação")').addClass('active')
+                        .find('.stage-icon i').removeClass('fa-hourglass').addClass('fa-spinner');
+                    
+                    $('.opportunity-status .status').text('Negociação');
+                    $('.progress-bar').css('width', '70%');
+                    
+                    $(this).text('Avançar para Fechamento')
+                        .attr('data-stage', 'fechamento');
+                    
+                    alert('Estágio atualizado com sucesso!');
+                }
+            });
+            
+            // Converter em venda
+            $('#convertBtn').click(function() {
+                if (confirm('Tem certeza que deseja converter esta oportunidade em venda?')) {
+                    // Em uma aplicação real, você converteria a oportunidade em venda no servidor
+                    console.log('Convertendo oportunidade em venda');
+                    
+                    setTimeout(() => {
+                        window.location.href = '/sales';
+                    }, 1000);
+                    
+                    alert('Oportunidade convertida em venda com sucesso!');
+                }
+            });
+            
+            // Upload documento
+            $('#uploadDocumentBtn').click(function() {
+                $('#documentFile').click();
+            });
+            
+            $('#documentFile').change(function() {
+                if (this.files.length > 0) {
+                    const fileName = this.files[0].name;
+                    console.log('Enviando documento:', fileName);
+                    
+                    // Em uma aplicação real, você faria o upload do arquivo para o servidor
+                    
+                    // Simular adição do documento à tabela
+                    const today = new Date().toLocaleDateString('pt-BR', { 
+                        year: 'numeric', 
+                        month: '2-digit', 
+                        day: '2-digit' 
+                    }).replace(/\//g, '/');
+                    
+                    const fileType = fileName.split('.').pop().toUpperCase();
+                    
+                    const newRow = `
+                        <tr>
+                            <td>${fileName}</td>
+                            <td>${fileType}</td>
+                            <td>Vendedor 1</td>
+                            <td>${today}</td>
+                            <td class="actions">
+                                <a href="#" class="btn-icon"><i class="fas fa-download"></i></a>
+                                <a href="#" class="btn-icon delete-document" data-id="new"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    `;
+                    
+                    $(newRow).prependTo('#activityModal + .card .table tbody');
+                    
+                    bindDeleteDocumentHandlers();
+                    
+                    alert('Documento enviado com sucesso!');
+                }
+            });
+            
+            // Excluir documento
+            function bindDeleteDocumentHandlers() {
+                $('.delete-document').off('click').on('click', function(e) {
+                    e.preventDefault();
+                    
+                    if (confirm('Tem certeza que deseja excluir este documento?')) {
+                        const documentId = $(this).data('id');
+                        console.log('Excluindo documento ID:', documentId);
+                        
+                        // Em uma aplicação real, você excluiria o documento no servidor
+                        
+                        $(this).closest('tr').remove();
+                        alert('Documento excluído com sucesso!');
+                    }
+                });
+            }
+            
+            bindDeleteDocumentHandlers();
+            
+            // Marcar tarefa como concluída
+            $('.complete-task').click(function(e) {
+                e.preventDefault();
+                
+                const taskId = $(this).data('id');
+                console.log('Marcando tarefa como concluída, ID:', taskId);
+                
+                // Em uma aplicação real, você atualizaria o status da tarefa no servidor
+                
+                $(this).closest('tr').find('td:nth-child(2) span')
+                    .removeClass('pending')
+                    .addClass('active')
+                    .text('Concluída');
+                
+                $(this).remove();
+                
+                alert('Tarefa marcada como concluída!');
+            });
+            
+            // Salvar notas
+            $('#saveNotesBtn').click(function() {
+                const notes = $('#opportunityNotes').val();
+                console.log('Salvando notas:', notes);
+                
+                // Em uma aplicação real, você atualizaria as notas da oportunidade no servidor
+                
+                alert('Notas salvas com sucesso!');
+            });
+        });
+    </script>
+</body>
+</html>

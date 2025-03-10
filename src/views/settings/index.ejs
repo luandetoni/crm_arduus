@@ -1,0 +1,422 @@
+<div class="dashboard">
+    <%- include('../partials/sidebar') %>
+    
+    <div class="main-content">
+        <%- include('../partials/header') %>
+        
+        <div class="content">
+            <div class="d-flex align-center justify-between mb-20">
+                <h1 class="page-title">Configurações</h1>
+            </div>
+            
+            <div class="row">
+                <div class="col" style="flex: 0 0 250px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="settings-menu">
+                                <li class="settings-menu-item active" data-section="general">
+                                    <i class="fas fa-cog"></i> Configurações Gerais
+                                </li>
+                                <li class="settings-menu-item" data-section="users">
+                                    <i class="fas fa-users"></i> Usuários
+                                </li>
+                                <li class="settings-menu-item" data-section="company">
+                                    <i class="fas fa-building"></i> Empresa
+                                </li>
+                                <li class="settings-menu-item" data-section="email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </li>
+                                <li class="settings-menu-item" data-section="customFields">
+                                    <i class="fas fa-edit"></i> Campos Personalizados
+                                </li>
+                                <li class="settings-menu-item" data-section="pipeline">
+                                    <i class="fas fa-project-diagram"></i> Pipeline
+                                </li>
+                                <li class="settings-menu-item" data-section="security">
+                                    <i class="fas fa-shield-alt"></i> Segurança
+                                </li>
+                                <li class="settings-menu-item" data-section="notifications">
+                                    <i class="fas fa-bell"></i> Notificações
+                                </li>
+                                <li class="settings-menu-item" data-section="integrations">
+                                    <i class="fas fa-plug"></i> Integrações
+                                </li>
+                                <li class="settings-menu-item" data-section="backup">
+                                    <i class="fas fa-database"></i> Backup e Restauração
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <!-- Configurações Gerais -->
+                    <div id="general" class="settings-section">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Configurações Gerais</h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="generalSettingsForm">
+                                    <div class="form-row">
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="systemName" class="form-label">Nome do Sistema</label>
+                                                <input type="text" id="systemName" class="form-control" value="CRM Sistema">
+                                            </div>
+                                        </div>
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="defaultLanguage" class="form-label">Idioma Padrão</label>
+                                                <select id="defaultLanguage" class="form-control">
+                                                    <option value="pt-BR" selected>Português (Brasil)</option>
+                                                    <option value="en-US">English (United States)</option>
+                                                    <option value="es-ES">Español</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="timezone" class="form-label">Fuso Horário</label>
+                                                <select id="timezone" class="form-control">
+                                                    <option value="America/Sao_Paulo" selected>America/Sao_Paulo (GMT-3)</option>
+                                                    <option value="America/New_York">America/New_York (GMT-4)</option>
+                                                    <option value="Europe/London">Europe/London (GMT+1)</option>
+                                                    <option value="Asia/Tokyo">Asia/Tokyo (GMT+9)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="dateFormat" class="form-label">Formato de Data</label>
+                                                <select id="dateFormat" class="form-control">
+                                                    <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
+                                                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="currency" class="form-label">Moeda</label>
+                                                <select id="currency" class="form-control">
+                                                    <option value="BRL" selected>Real Brasileiro (R$)</option>
+                                                    <option value="USD">Dólar Americano ($)</option>
+                                                    <option value="EUR">Euro (€)</option>
+                                                    <option value="GBP">Libra Esterlina (£)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="itemsPerPage" class="form-label">Itens por Página</label>
+                                                <select id="itemsPerPage" class="form-control">
+                                                    <option value="10">10</option>
+                                                    <option value="25" selected>25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Módulos Ativos</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="customersModule" checked>
+                                            <label for="customersModule">Clientes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="leadsModule" checked>
+                                            <label for="leadsModule">Leads</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="opportunitiesModule" checked>
+                                            <label for="opportunitiesModule">Oportunidades</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="productsModule" checked>
+                                            <label for="productsModule">Produtos</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="salesModule" checked>
+                                            <label for="salesModule">Vendas</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="tasksModule" checked>
+                                            <label for="tasksModule">Tarefas</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="calendarModule" checked>
+                                            <label for="calendarModule">Calendário</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="reportsModule" checked>
+                                            <label for="reportsModule">Relatórios</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary">Salvar Configurações</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Usuários -->
+                    <div id="users" class="settings-section" style="display: none;">
+                        <div class="card">
+                            <div class="card-header d-flex justify-between align-center">
+                                <h3 class="card-title">Usuários</h3>
+                                <button id="addUserBtn" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Novo Usuário
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Email</th>
+                                                <th>Função</th>
+                                                <th>Departamento</th>
+                                                <th>Status</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Admin User</td>
+                                                <td>admin@example.com</td>
+                                                <td>Admin</td>
+                                                <td>Administrativo</td>
+                                                <td><span class="status active">Ativo</span></td>
+                                                <td class="actions">
+                                                    <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                                    <a href="#" class="btn-icon"><i class="fas fa-key"></i></a>
+                                                    <a href="#" class="btn-icon"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sales Manager</td>
+                                                <td>manager@example.com</td>
+                                                <td>Manager</td>
+                                                <td>Vendas</td>
+                                                <td><span class="status active">Ativo</span></td>
+                                                <td class="actions">
+                                                    <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                                    <a href="#" class="btn-icon"><i class="fas fa-key"></i></a>
+                                                    <a href="#" class="btn-icon"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sales Rep</td>
+                                                <td>sales@example.com</td>
+                                                <td>Sales</td>
+                                                <td>Vendas</td>
+                                                <td><span class="status active">Ativo</span></td>
+                                                <td class="actions">
+                                                    <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                                    <a href="#" class="btn-icon"><i class="fas fa-key"></i></a>
+                                                    <a href="#" class="btn-icon"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Support User</td>
+                                                <td>support@example.com</td>
+                                                <td>Support</td>
+                                                <td>Suporte</td>
+                                                <td><span class="status active">Ativo</span></td>
+                                                <td class="actions">
+                                                    <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                                    <a href="#" class="btn-icon"><i class="fas fa-key"></i></a>
+                                                    <a href="#" class="btn-icon"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Empresa -->
+                    <div id="company" class="settings-section" style="display: none;">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Informações da Empresa</h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="companySettingsForm">
+                                    <div class="form-row">
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="companyName" class="form-label">Nome da Empresa</label>
+                                                <input type="text" id="companyName" class="form-control" value="Minha Empresa Ltda.">
+                                            </div>
+                                        </div>
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="companyDocument" class="form-label">CNPJ</label>
+                                                <input type="text" id="companyDocument" class="form-control" value="12.345.678/0001-90">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="companyEmail" class="form-label">Email</label>
+                                                <input type="email" id="companyEmail" class="form-control" value="contato@minhaempresa.com.br">
+                                            </div>
+                                        </div>
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="companyPhone" class="form-label">Telefone</label>
+                                                <input type="text" id="companyPhone" class="form-control" value="(11) 3456-7890">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="companyWebsite" class="form-label">Website</label>
+                                                <input type="url" id="companyWebsite" class="form-control" value="https://www.minhaempresa.com.br">
+                                            </div>
+                                        </div>
+                                        <div class="form-col">
+                                            <div class="form-group">
+                                                <label for="companyLogo" class="form-label">Logo</label>
+                                                <input type="file" id="companyLogo" class="form-control" accept="image/*">
+                                                <small class="text-muted">Tamanho recomendado: 200x200px</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="companyAddress" class="form-label">Endereço</label>
+                                        <textarea id="companyAddress" class="form-control" rows="3">Av. Paulista, 1000
+São Paulo, SP
+01310-100
+Brasil</textarea>
+                                    </div>
+                                    
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary">Salvar Informações</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Outras seções de configurações estariam aqui, ocultadas inicialmente -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.settings-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.settings-menu-item {
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.settings-menu-item:hover {
+    background-color: #f5f5f5;
+}
+
+.settings-menu-item.active {
+    background-color: rgba(74, 108, 247, 0.1);
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.settings-menu-item i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.settings-section {
+    display: block;
+}
+</style>
+
+<script>
+    $(document).ready(function() {
+        // Alternar entre seções de configurações
+        $('.settings-menu-item').click(function() {
+            const section = $(this).data('section');
+            
+            // Atualizar menu
+            $('.settings-menu-item').removeClass('active');
+            $(this).addClass('active');
+            
+            // Mostrar seção selecionada
+            $('.settings-section').hide();
+            $(`#${section}`).show();
+        });
+        
+        // Envio do formulário de configurações gerais
+        $('#generalSettingsForm').submit(function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                systemName: $('#systemName').val(),
+                defaultLanguage: $('#defaultLanguage').val(),
+                timezone: $('#timezone').val(),
+                dateFormat: $('#dateFormat').val(),
+                currency: $('#currency').val(),
+                itemsPerPage: $('#itemsPerPage').val(),
+                modules: {
+                    customers: $('#customersModule').is(':checked'),
+                    leads: $('#leadsModule').is(':checked'),
+                    opportunities: $('#opportunitiesModule').is(':checked'),
+                    products: $('#productsModule').is(':checked'),
+                    sales: $('#salesModule').is(':checked'),
+                    tasks: $('#tasksModule').is(':checked'),
+                    calendar: $('#calendarModule').is(':checked'),
+                    reports: $('#reportsModule').is(':checked')
+                }
+            };
+            
+            console.log('Configurações gerais:', formData);
+            
+            // Em uma aplicação real, enviaria para a API
+            alert('Configurações salvas com sucesso!');
+        });
+        
+        // Envio do formulário de informações da empresa
+        $('#companySettingsForm').submit(function(e) {
+            e.preventDefault();
+            
+            // Em uma aplicação real, enviaria para a API usando FormData para incluir arquivo
+            alert('Informações da empresa salvas com sucesso!');
+        });
+        
+        // Adicionar novo usuário
+        $('#addUserBtn').click(function() {
+            alert('Abrir modal para adicionar novo usuário');
+            // Em uma aplicação real, abriria um modal com formulário
+        });
+    });
+</script>

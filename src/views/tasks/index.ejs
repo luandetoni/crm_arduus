@@ -1,0 +1,197 @@
+<div class="dashboard">
+    <%- include('../partials/sidebar') %>
+    
+    <div class="main-content">
+        <%- include('../partials/header') %>
+        
+        <div class="content">
+            <div class="d-flex align-center justify-between mb-20">
+                <h1 class="page-title">Tarefas</h1>
+                <div>
+                    <a href="/tasks/new" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Nova Tarefa
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card mb-20">
+                <div class="card-header">
+                    <h3 class="card-title">Filtros</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="searchFilter" class="form-label">Buscar</label>
+                                <input type="text" id="searchFilter" class="form-control" placeholder="Título, descrição...">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="statusFilter" class="form-label">Status</label>
+                                <select id="statusFilter" class="form-control">
+                                    <option value="">Todos</option>
+                                    <option value="pendente">Pendente</option>
+                                    <option value="em_andamento">Em Andamento</option>
+                                    <option value="concluída">Concluída</option>
+                                    <option value="cancelada">Cancelada</option>
+                                    <option value="atrasada">Atrasada</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="priorityFilter" class="form-label">Prioridade</label>
+                                <select id="priorityFilter" class="form-control">
+                                    <option value="">Todas</option>
+                                    <option value="baixa">Baixa</option>
+                                    <option value="média">Média</option>
+                                    <option value="alta">Alta</option>
+                                    <option value="urgente">Urgente</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label">&nbsp;</label>
+                                <button id="filterButton" class="btn btn-primary btn-block">Filtrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Lista de Tarefas</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" id="tasksTable">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Status</th>
+                                    <th>Prioridade</th>
+                                    <th>Vencimento</th>
+                                    <th>Responsável</th>
+                                    <th>Relacionado a</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Ligar para cliente sobre renovação</td>
+                                    <td><span class="status pending">Pendente</span></td>
+                                    <td><span class="text-danger">Alta</span></td>
+                                    <td>Hoje</td>
+                                    <td>Vendedor 1</td>
+                                    <td>Tech Solutions</td>
+                                    <td class="actions">
+                                        <a href="/tasks/1" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                        <a href="/tasks/1/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn-icon complete-task" data-id="1" title="Marcar como Concluída"><i class="fas fa-check"></i></a>
+                                        <a href="#" class="btn-icon delete-task" data-id="1"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Preparar proposta de consultoria</td>
+                                    <td><span class="status active">Em andamento</span></td>
+                                    <td><span class="text-warning">Média</span></td>
+                                    <td>28/05/2025</td>
+                                    <td>Vendedor 2</td>
+                                    <td>Tech Solutions</td>
+                                    <td class="actions">
+                                        <a href="/tasks/2" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                        <a href="/tasks/2/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn-icon complete-task" data-id="2" title="Marcar como Concluída"><i class="fas fa-check"></i></a>
+                                        <a href="#" class="btn-icon delete-task" data-id="2"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Acompanhamento de lead qualificado</td>
+                                    <td><span class="status pending">Pendente</span></td>
+                                    <td><span class="text-warning">Média</span></td>
+                                    <td>29/05/2025</td>
+                                    <td>Vendedor 1</td>
+                                    <td>Ricardo Santos</td>
+                                    <td class="actions">
+                                        <a href="/tasks/3" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                        <a href="/tasks/3/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn-icon complete-task" data-id="3" title="Marcar como Concluída"><i class="fas fa-check"></i></a>
+                                        <a href="#" class="btn-icon delete-task" data-id="3"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Verificar feedback do cliente</td>
+                                    <td><span class="status pending">Pendente</span></td>
+                                    <td><span class="text-primary">Baixa</span></td>
+                                    <td>01/06/2025</td>
+                                    <td>Suporte 1</td>
+                                    <td>Ana Santos</td>
+                                    <td class="actions">
+                                        <a href="/tasks/4" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                        <a href="/tasks/4/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn-icon complete-task" data-id="4" title="Marcar como Concluída"><i class="fas fa-check"></i></a>
+                                        <a href="#" class="btn-icon delete-task" data-id="4"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="d-flex justify-between align-center mt-20">
+                        <div>
+                            Mostrando 1-4 de 4 registros
+                        </div>
+                        <div class="pagination">
+                            <button class="btn btn-primary" disabled>Anterior</button>
+                            <button class="btn btn-primary" disabled>Próximo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Filtrar tarefas
+        $('#filterButton').click(function() {
+            console.log('Filtrando tarefas...');
+            
+            const filters = {
+                search: $('#searchFilter').val(),
+                status: $('#statusFilter').val(),
+                priority: $('#priorityFilter').val()
+            };
+            
+            console.log('Filtros:', filters);
+            
+            // Aqui faria a chamada à API e atualizaria a tabela
+        });
+        
+        // Marcar tarefa como concluída
+        $('.complete-task').click(function(e) {
+            e.preventDefault();
+            
+            const taskId = $(this).data('id');
+            console.log('Marcando tarefa como concluída, ID:', taskId);
+            
+            // Aqui faria a chamada à API para atualizar status
+        });
+        
+        // Excluir tarefa
+        $('.delete-task').click(function(e) {
+            e.preventDefault();
+            
+            if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
+                const taskId = $(this).data('id');
+                console.log('Excluindo tarefa ID:', taskId);
+                
+                // Aqui faria a chamada à API para excluir
+            }
+        });
+    });
+</script>

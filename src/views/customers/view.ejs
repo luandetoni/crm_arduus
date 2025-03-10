@@ -1,0 +1,508 @@
+<div class="dashboard">
+    <%- include('../partials/sidebar') %>
+    
+    <div class="main-content">
+        <%- include('../partials/header') %>
+        
+        <div class="content">
+            <div class="d-flex align-center justify-between mb-20">
+                <div>
+                    <h1 class="page-title">Detalhes do Cliente</h1>
+                    <p>ID: <%= customerId %></p>
+                </div>
+                <div>
+                    <a href="/customers/<%= customerId %>/edit" class="btn btn-primary">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <a href="/customers" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </a>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col" style="flex: 0 0 250px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-center mb-20">
+                                <div style="width: 60px; height: 60px; background-color: #4a6cf7; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; margin-right: 15px;">
+                                    JS
+                                </div>
+                                <div>
+                                    <h3 class="mb-0">João Silva</h3>
+                                    <p class="text-secondary mb-0">Silva & Cia</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-20">
+                                <p class="mb-10"><i class="fas fa-envelope"></i> joao.silva@example.com</p>
+                                <p class="mb-10"><i class="fas fa-phone"></i> (11) 95555-1234</p>
+                                <p class="mb-10"><i class="fas fa-globe"></i> www.silvaecia.com.br</p>
+                                <p class="mb-10"><i class="fas fa-industry"></i> Manufatura</p>
+                            </div>
+                            
+                            <div>
+                                <span class="status active">Ativo</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-20">
+                        <div class="card-header">
+                            <h3 class="card-title">Detalhes de Contato</h3>
+                        </div>
+                        <div class="card-body">
+                            <h4>Pessoa de Contato</h4>
+                            <p class="mb-10"><strong>Nome:</strong> Maria Silva</p>
+                            <p class="mb-10"><strong>Cargo:</strong> Diretora Financeira</p>
+                            <p class="mb-10"><strong>Email:</strong> maria@silvaecia.com.br</p>
+                            <p class="mb-10"><strong>Telefone:</strong> (11) 98888-5678</p>
+                            
+                            <h4 class="mt-20">Endereço</h4>
+                            <p class="mb-10">Av. Paulista, 1000</p>
+                            <p class="mb-10">São Paulo, SP</p>
+                            <p class="mb-10">01310-100</p>
+                            <p class="mb-10">Brasil</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col" style="flex: 1;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Resumo</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="stat-cards">
+                                <div class="stat-card">
+                                    <div class="stat-card-icon primary">
+                                        <i class="fas fa-handshake"></i>
+                                    </div>
+                                    <div class="stat-card-info">
+                                        <h3>2</h3>
+                                        <p>Oportunidades Abertas</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-card-icon success">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                    <div class="stat-card-info">
+                                        <h3>R$ 15.150,00</h3>
+                                        <p>Total em Vendas</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-card-icon info">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                    <div class="stat-card-info">
+                                        <h3>5</h3>
+                                        <p>Interações</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-card-icon warning">
+                                        <i class="fas fa-tasks"></i>
+                                    </div>
+                                    <div class="stat-card-info">
+                                        <h3>2</h3>
+                                        <p>Tarefas Pendentes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-20">
+                        <div class="card-header d-flex justify-between align-center">
+                            <h3 class="card-title">Oportunidades</h3>
+                            <a href="/opportunities/new?customer=<%= customerId %>" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Nova Oportunidade
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Título</th>
+                                            <th>Estágio</th>
+                                            <th>Valor</th>
+                                            <th>Data de Fechamento</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Renovação de contrato anual</td>
+                                            <td><span class="status pending">Proposta</span></td>
+                                            <td>R$ 12.800,00</td>
+                                            <td>15/06/2025</td>
+                                            <td class="actions">
+                                                <a href="/opportunities/1" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                <a href="/opportunities/1/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Projeto de consultoria</td>
+                                            <td><span class="status pending">Negociação</span></td>
+                                            <td>R$ 5.000,00</td>
+                                            <td>28/05/2025</td>
+                                            <td class="actions">
+                                                <a href="/opportunities/2" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                <a href="/opportunities/2/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-20">
+                        <div class="card-header d-flex justify-between align-center">
+                            <h3 class="card-title">Histórico de Interações</h3>
+                            <a href="/interactions/new?customer=<%= customerId %>" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Nova Interação
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="interaction-timeline">
+                                <div class="interaction-item">
+                                    <div class="interaction-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="interaction-content">
+                                        <div class="interaction-header">
+                                            <h4>Ligação - Apresentação inicial</h4>
+                                            <span>20/05/2025</span>
+                                        </div>
+                                        <p>Ligação para apresentação dos produtos e serviços. Cliente interessado em receber proposta.</p>
+                                        <p><strong>Resultado:</strong> Cliente solicitou envio de proposta detalhada.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="interaction-item">
+                                    <div class="interaction-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="interaction-content">
+                                        <div class="interaction-header">
+                                            <h4>Email - Envio de proposta</h4>
+                                            <span>21/05/2025</span>
+                                        </div>
+                                        <p>Email enviado com proposta comercial conforme solicitado na ligação.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="interaction-item">
+                                    <div class="interaction-icon">
+                                        <i class="fas fa-handshake"></i>
+                                    </div>
+                                    <div class="interaction-content">
+                                        <div class="interaction-header">
+                                            <h4>Reunião - Discussão da proposta</h4>
+                                            <span>22/05/2025</span>
+                                        </div>
+                                        <p>Reunião para discutir detalhes da proposta enviada. Cliente gostou da proposta, mas solicitou alguns ajustes nas condições de pagamento.</p>
+                                        <p><strong>Resultado:</strong> Proposta será revisada com novos prazos de pagamento.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-20">
+                        <div class="card-header d-flex justify-between align-center">
+                            <h3 class="card-title">Tarefas</h3>
+                            <a href="/tasks/new?customer=<%= customerId %>" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Nova Tarefa
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Título</th>
+                                            <th>Status</th>
+                                            <th>Prioridade</th>
+                                            <th>Vencimento</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Ligar para cliente sobre renovação</td>
+                                            <td><span class="status pending">Pendente</span></td>
+                                            <td><span class="text-danger">Alta</span></td>
+                                            <td>01/06/2025</td>
+                                            <td class="actions">
+                                                <a href="/tasks/1" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                <a href="/tasks/1/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                                <a href="#" class="btn-icon complete-task" data-id="1"><i class="fas fa-check"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Enviar proposta revisada</td>
+                                            <td><span class="status pending">Pendente</span></td>
+                                            <td><span class="text-warning">Média</span></td>
+                                            <td>03/06/2025</td>
+                                            <td class="actions">
+                                                <a href="/tasks/2" class="btn-icon"><i class="fas fa-eye"></i></a>
+                                                <a href="/tasks/2/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                                                <a href="#" class="btn-icon complete-task" data-id="2"><i class="fas fa-check"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-20">
+                        <div class="card-header d-flex justify-between align-center">
+                            <h3 class="card-title">Documentos</h3>
+                            <div>
+                                <form id="uploadDocumentForm" style="display: inline-block;">
+                                    <input type="file" id="documentFile" style="display: none;" />
+                                    <button type="button" id="uploadDocumentBtn" class="btn btn-primary">
+                                        <i class="fas fa-upload"></i> Enviar Documento
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Tipo</th>
+                                            <th>Enviado por</th>
+                                            <th>Data</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Contrato Anual 2025.pdf</td>
+                                            <td>PDF</td>
+                                            <td>Vendedor 1</td>
+                                            <td>21/05/2025</td>
+                                            <td class="actions">
+                                                <a href="#" class="btn-icon"><i class="fas fa-download"></i></a>
+                                                <a href="#" class="btn-icon delete-document" data-id="1"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Proposta Comercial.pdf</td>
+                                            <td>PDF</td>
+                                            <td>Vendedor 1</td>
+                                            <td>22/05/2025</td>
+                                            <td class="actions">
+                                                <a href="#" class="btn-icon"><i class="fas fa-download"></i></a>
+                                                <a href="#" class="btn-icon delete-document" data-id="2"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-20">
+                        <div class="card-header">
+                            <h3 class="card-title">Notas</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-20">
+                                <textarea id="customerNotes" class="form-control" rows="4" placeholder="Adicionar notas sobre o cliente...">Cliente interessado em renovar contrato anual. Solicitou melhores condições de pagamento. É necessário enviar nova proposta até o final do mês.</textarea>
+                            </div>
+                            <div class="text-right">
+                                <button id="saveNotesBtn" class="btn btn-primary">Salvar Notas</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.interaction-timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.interaction-timeline:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 2px;
+    background-color: #e0e0e0;
+    z-index: 1;
+}
+
+.interaction-item {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 60px;
+}
+
+.interaction-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.interaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.interaction-header h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.interaction-header span {
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+
+.interaction-content {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.interaction-content p:last-child {
+    margin-bottom: 0;
+}
+</style>
+
+<script>
+    $(document).ready(function() {
+        // Upload documento
+        $('#uploadDocumentBtn').click(function() {
+            $('#documentFile').click();
+        });
+        
+        $('#documentFile').change(function() {
+            if (this.files.length > 0) {
+                // Simulação de upload
+                const fileName = this.files[0].name;
+                console.log('Enviando documento:', fileName);
+                alert('Documento enviado com sucesso: ' + fileName);
+                
+                // Em uma aplicação real, você faria o upload via AJAX
+                // const formData = new FormData();
+                // formData.append('document', this.files[0]);
+                // formData.append('customerId', <%= customerId %>);
+                // 
+                // fetch('/api/customers/<%= customerId %>/documents', {
+                //   method: 'POST',
+                //   headers: {
+                //     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                //   },
+                //   body: formData
+                // })
+                // .then(response => response.json())
+                // .then(data => {
+                //    // Atualizar tabela de documentos
+                // })
+                // .catch(error => console.error('Erro ao enviar documento:', error));
+            }
+        });
+        
+        // Salvar notas
+        $('#saveNotesBtn').click(function() {
+            const notes = $('#customerNotes').val();
+            console.log('Salvando notas:', notes);
+            alert('Notas salvas com sucesso!');
+            
+            // Em uma aplicação real:
+            // fetchAPI(`customers/<%= customerId %>`, {
+            //    method: 'PUT',
+            //    body: JSON.stringify({ notes })
+            // })
+            // .then(response => {
+            //    showNotification('Notas salvas com sucesso', 'success');
+            // })
+            // .catch(error => {
+            //    console.error('Erro ao salvar notas:', error);
+            //    showNotification('Erro ao salvar notas', 'error');
+            // });
+        });
+        
+        // Marcar tarefa como concluída
+        $('.complete-task').click(function(e) {
+            e.preventDefault();
+            
+            const taskId = $(this).data('id');
+            console.log('Marcando tarefa como concluída, ID:', taskId);
+            alert('Tarefa marcada como concluída!');
+            
+            // Em uma aplicação real:
+            // fetchAPI(`tasks/${taskId}/status`, {
+            //    method: 'PUT',
+            //    body: JSON.stringify({ status: 'concluída' })
+            // })
+            // .then(response => {
+            //    // Atualizar tabela de tarefas
+            //    $(this).closest('tr').find('td:nth-child(2) span').removeClass('pending').addClass('active').text('Concluída');
+            //    showNotification('Tarefa marcada como concluída', 'success');
+            // })
+            // .catch(error => {
+            //    console.error('Erro ao atualizar tarefa:', error);
+            //    showNotification('Erro ao atualizar tarefa', 'error');
+            // });
+        });
+        
+        // Excluir documento
+        $('.delete-document').click(function(e) {
+            e.preventDefault();
+            
+            if (confirm('Tem certeza que deseja excluir este documento?')) {
+                const documentId = $(this).data('id');
+                console.log('Excluindo documento ID:', documentId);
+                alert('Documento excluído com sucesso!');
+                
+                // Em uma aplicação real:
+                // fetchAPI(`customers/<%= customerId %>/documents/${documentId}`, {
+                //    method: 'DELETE'
+                // })
+                // .then(response => {
+                //    // Remover linha da tabela
+                //    $(this).closest('tr').remove();
+                //    showNotification('Documento excluído com sucesso', 'success');
+                // })
+                // .catch(error => {
+                //    console.error('Erro ao excluir documento:', error);
+                //    showNotification('Erro ao excluir documento', 'error');
+                // });
+            }
+        });
+    });
+</script>

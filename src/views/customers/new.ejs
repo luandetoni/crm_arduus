@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+</head>
+<body>
+    <div class="dashboard">
+        <%- include('../partials/sidebar') %>
+        
+        <div class="main-content">
+            <%- include('../partials/header') %>
+            
+            <div class="content">
+                <div class="d-flex align-center justify-between mb-20">
+                    <h1 class="page-title">Novo Cliente</h1>
+                    <div>
+                        <a href="/customers" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> Voltar
+                        </a>
+                    </div>
+                </div>
+                
+                <form id="newCustomerForm">
+                    <div class="form-card">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Informações Principais</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">Nome *</label>
+                                        <input type="text" id="name" name="name" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email *</label>
+                                        <input type="email" id="email" name="email" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="type" class="form-label">Tipo *</label>
+                                        <select id="type" name="type" class="form-control" required>
+                                            <option value="individual">Individual</option>
+                                            <option value="business">Empresa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="companyName" class="form-label">Nome da Empresa</label>
+                                        <input type="text" id="companyName" name="companyName" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="phone" class="form-label">Telefone</label>
+                                        <input type="text" id="phone" name="phone" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="website" class="form-label">Website</label>
+                                        <input type="url" id="website" name="website" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="industry" class="form-label">Indústria/Setor</label>
+                                        <input type="text" id="industry" name="industry" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="status" class="form-label">Status *</label>
+                                        <select id="status" name="status" class="form-control" required>
+                                            <option value="ativo">Ativo</option>
+                                            <option value="inativo">Inativo</option>
+                                            <option value="potencial">Potencial</option>
+                                            <option value="perdido">Perdido</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3 class="form-section-title">Endereço</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="street" class="form-label">Rua/Avenida</label>
+                                        <input type="text" id="street" name="address.street" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="city" class="form-label">Cidade</label>
+                                        <input type="text" id="city" name="address.city" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="state" class="form-label">Estado</label>
+                                        <input type="text" id="state" name="address.state" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="zipCode" class="form-label">CEP</label>
+                                        <input type="text" id="zipCode" name="address.zipCode" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="country" class="form-label">País</label>
+                                        <input type="text" id="country" name="address.country" class="form-control" value="Brasil">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-col">
+                                    <!-- Coluna vazia para manter o layout -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3 class="form-section-title">Pessoa de Contato</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="contactName" class="form-label">Nome</label>
+                                        <input type="text" id="contactName" name="contactPerson.name" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="contactPosition" class="form-label">Cargo</label>
+                                        <input type="text" id="contactPosition" name="contactPerson.position" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="contactPhone" class="form-label">Telefone</label>
+                                        <input type="text" id="contactPhone" name="contactPerson.phone" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="contactEmail" class="form-label">Email</label>
+                                        <input type="email" id="contactEmail" name="contactPerson.email" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3 class="form-section-title">Informações Adicionais</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="source" class="form-label">Origem</label>
+                                        <select id="source" name="source" class="form-control">
+                                            <option value="indicação">Indicação</option>
+                                            <option value="website">Website</option>
+                                            <option value="mídia social">Mídia Social</option>
+                                            <option value="mailing">Mailing</option>
+                                            <option value="evento">Evento</option>
+                                            <option value="publicidade">Publicidade</option>
+                                            <option value="outros">Outros</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="tags" class="form-label">Tags (separadas por vírgula)</label>
+                                        <input type="text" id="tags" name="tags" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="notes" class="form-label">Observações</label>
+                                        <textarea id="notes" name="notes" class="form-control" rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="window.location.href='/customers'">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar Cliente</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery (necessário para alguns plugins Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Main JavaScript -->
+    <script src="/js/main.js"></script>
+    <script>
+        // Script específico para formulário de novo cliente
+        $(document).ready(function() {
+            // Mostrar/ocultar campos da empresa com base no tipo
+            $('#type').change(function() {
+                const isCompany = $(this).val() === 'business';
+                
+                if (isCompany) {
+                    $('#companyName').closest('.form-col').show();
+                    $('.form-section:contains("Pessoa de Contato")').show();
+                } else {
+                    $('#companyName').closest('.form-col').hide();
+                    $('.form-section:contains("Pessoa de Contato")').hide();
+                }
+            });
+            
+            // Trigger initial state
+            $('#type').trigger('change');
+            
+            // Submit form
+            $('#newCustomerForm').submit(function(e) {
+                e.preventDefault();
+                
+                // Coleta dados do formulário
+                const formData = {};
+                $(this).serializeArray().forEach(item => {
+                    // Handle nested properties (address.street, contactPerson.name, etc.)
+                    if (item.name.includes('.')) {
+                        const parts = item.name.split('.');
+                        if (!formData[parts[0]]) {
+                            formData[parts[0]] = {};
+                        }
+                        formData[parts[0]][parts[1]] = item.value;
+                    } else if (item.name === 'tags') {
+                        // Convert tags string to array
+                        formData[item.name] = item.value.split(',').map(tag => tag.trim()).filter(Boolean);
+                    } else {
+                        formData[item.name] = item.value;
+                    }
+                });
+                
+                console.log('Dados do cliente:', formData);
+                
+                // Em uma aplicação real, você faria:
+                // createCustomer(formData)
+                //    .then(response => {
+                //        window.location.href = `/customers/${response._id}`;
+                //    })
+                //    .catch(error => {
+                //        console.error('Erro ao criar cliente:', error);
+                //        showNotification('Erro ao criar cliente', 'error');
+                //    });
+                
+                // Por enquanto, redirecionamos para a lista
+                setTimeout(() => {
+                    window.location.href = '/customers';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>

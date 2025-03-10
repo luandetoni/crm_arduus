@@ -1,0 +1,76 @@
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-brand">CRM Sistema</div>
+        <button class="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    <ul class="sidebar-menu">
+        <li class="sidebar-item">
+            <a href="/dashboard" class="sidebar-link <%= (title.includes('Dashboard')) ? 'active' : '' %>">
+                <i class="fas fa-tachometer-alt"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/customers" class="sidebar-link <%= (title.includes('Cliente')) ? 'active' : '' %>">
+                <i class="fas fa-users"></i>
+                Clientes
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/leads" class="sidebar-link <%= (title.includes('Lead')) ? 'active' : '' %>">
+                <i class="fas fa-user-tag"></i>
+                Leads
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/opportunities" class="sidebar-link <%= (title.includes('Oportunidades')) ? 'active' : '' %>">
+                <i class="fas fa-handshake"></i>
+                Oportunidades
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/products" class="sidebar-link <%= (title.includes('Produtos')) ? 'active' : '' %>">
+                <i class="fas fa-box"></i>
+                Produtos
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/sales" class="sidebar-link <%= (title.includes('Vendas')) ? 'active' : '' %>">
+                <i class="fas fa-shopping-cart"></i>
+                Vendas
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/tasks" class="sidebar-link <%= (title.includes('Tarefa')) ? 'active' : '' %>">
+                <i class="fas fa-tasks"></i>
+                Tarefas
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/calendar" class="sidebar-link <%= (title.includes('Calendário')) ? 'active' : '' %>">
+                <i class="fas fa-calendar-alt"></i>
+                Calendário
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/reports" class="sidebar-link <%= (title.includes('Relatório')) ? 'active' : '' %>">
+                <i class="fas fa-chart-line"></i>
+                Relatórios
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/settings" class="sidebar-link <%= (title.includes('Configurações')) ? 'active' : '' %>">
+                <i class="fas fa-cog"></i>
+                Configurações
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="#" id="logoutBtn" class="sidebar-link">
+                <i class="fas fa-sign-out-alt"></i>
+                Sair
+            </a>
+        </li>
+    </ul>
+</div>

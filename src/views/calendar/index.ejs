@@ -1,0 +1,642 @@
+<div class="dashboard">
+    <%- include('../partials/sidebar') %>
+    
+    <div class="main-content">
+        <%- include('../partials/header') %>
+        
+        <div class="content">
+            <div class="d-flex align-center justify-between mb-20">
+                <h1 class="page-title">Calendário</h1>
+                <div>
+                    <button id="addEventBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Novo Evento
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card mb-20">
+                <div class="card-header">
+                    <div class="d-flex justify-between align-center">
+                        <div>
+                            <button id="prevMonth" class="btn btn-secondary">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span id="currentMonthYear" class="mx-15">Maio 2025</span>
+                            <button id="nextMonth" class="btn btn-secondary">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div>
+                            <button id="todayBtn" class="btn btn-primary">Hoje</button>
+                            <select id="calendarView" class="form-control" style="display: inline-block; width: auto; margin-left: 10px;">
+                                <option value="month">Mês</option>
+                                <option value="week">Semana</option>
+                                <option value="day">Dia</option>
+                                <option value="agenda">Agenda</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="calendar">
+                        <!-- Calendário Mensal (Exemplo) -->
+                        <div class="calendar-month">
+                            <div class="calendar-header">
+                                <div class="calendar-day-header">Dom</div>
+                                <div class="calendar-day-header">Seg</div>
+                                <div class="calendar-day-header">Ter</div>
+                                <div class="calendar-day-header">Qua</div>
+                                <div class="calendar-day-header">Qui</div>
+                                <div class="calendar-day-header">Sex</div>
+                                <div class="calendar-day-header">Sáb</div>
+                            </div>
+                            <div class="calendar-body">
+                                <!-- Semana 1 -->
+                                <div class="calendar-day prev-month">28</div>
+                                <div class="calendar-day prev-month">29</div>
+                                <div class="calendar-day prev-month">30</div>
+                                <div class="calendar-day">1</div>
+                                <div class="calendar-day">2</div>
+                                <div class="calendar-day">3</div>
+                                <div class="calendar-day weekend">4</div>
+                                
+                                <!-- Semana 2 -->
+                                <div class="calendar-day weekend">5</div>
+                                <div class="calendar-day">6</div>
+                                <div class="calendar-day">7</div>
+                                <div class="calendar-day">8</div>
+                                <div class="calendar-day">9</div>
+                                <div class="calendar-day">10</div>
+                                <div class="calendar-day weekend">11</div>
+                                
+                                <!-- Semana 3 -->
+                                <div class="calendar-day weekend">12</div>
+                                <div class="calendar-day">13</div>
+                                <div class="calendar-day">14</div>
+                                <div class="calendar-day">15
+                                    <div class="calendar-event" style="background-color: #4a90e2;">
+                                        09:00 - Reunião com Tech Solutions
+                                    </div>
+                                </div>
+                                <div class="calendar-day">16</div>
+                                <div class="calendar-day">17</div>
+                                <div class="calendar-day weekend">18</div>
+                                
+                                <!-- Semana 4 -->
+                                <div class="calendar-day weekend">19</div>
+                                <div class="calendar-day">20</div>
+                                <div class="calendar-day">21</div>
+                                <div class="calendar-day">22
+                                    <div class="calendar-event" style="background-color: #50e3c2;">
+                                        14:00 - Apresentação de proposta
+                                    </div>
+                                </div>
+                                <div class="calendar-day">23</div>
+                                <div class="calendar-day">24</div>
+                                <div class="calendar-day weekend">25</div>
+                                
+                                <!-- Semana 5 -->
+                                <div class="calendar-day weekend">26</div>
+                                <div class="calendar-day">27</div>
+                                <div class="calendar-day today">28
+                                    <div class="calendar-event" style="background-color: #f5a623;">
+                                        11:00 - Acompanhamento de lead
+                                    </div>
+                                    <div class="calendar-event" style="background-color: #d0021b;">
+                                        15:30 - Call com cliente
+                                    </div>
+                                </div>
+                                <div class="calendar-day">29</div>
+                                <div class="calendar-day">30</div>
+                                <div class="calendar-day">31</div>
+                                <div class="calendar-day next-month">1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col" style="flex: 0 0 300px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Próximos Eventos</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="upcoming-events">
+                                <div class="upcoming-event">
+                                    <div class="event-time">Hoje, 11:00</div>
+                                    <div class="event-title">Acompanhamento de lead</div>
+                                    <div class="event-details">Ricardo Santos</div>
+                                </div>
+                                
+                                <div class="upcoming-event">
+                                    <div class="event-time">Hoje, 15:30</div>
+                                    <div class="event-title">Call com cliente</div>
+                                    <div class="event-details">João Silva</div>
+                                </div>
+                                
+                                <div class="upcoming-event">
+                                    <div class="event-time">31 Mai, 10:00</div>
+                                    <div class="event-title">Reunião de equipe</div>
+                                    <div class="event-details">Escritório Central</div>
+                                </div>
+                                
+                                <div class="upcoming-event">
+                                    <div class="event-time">02 Jun, 14:00</div>
+                                    <div class="event-title">Demo de produto</div>
+                                    <div class="event-details">Tech Solutions</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Filtros</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label">Tipos de Evento</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="meetingsCheck" checked>
+                                            <label for="meetingsCheck">Reuniões</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="callsCheck" checked>
+                                            <label for="callsCheck">Ligações</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="tasksCheck" checked>
+                                            <label for="tasksCheck">Tarefas</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="deadlinesCheck" checked>
+                                            <label for="deadlinesCheck">Prazos</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label">Membros da Equipe</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="ownEventsCheck" checked>
+                                            <label for="ownEventsCheck">Meus Eventos</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="teamEventsCheck" checked>
+                                            <label for="teamEventsCheck">Eventos da Equipe</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="companyEventsCheck" checked>
+                                            <label for="companyEventsCheck">Eventos da Empresa</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Adicionar/Editar Evento (oculto por padrão) -->
+<div id="eventModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Novo Evento</h2>
+            <span class="modal-close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="eventForm">
+                <div class="form-group">
+                    <label for="eventTitle" class="form-label">Título *</label>
+                    <input type="text" id="eventTitle" class="form-control" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="eventStartDate" class="form-label">Data de Início *</label>
+                            <input type="date" id="eventStartDate" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="eventStartTime" class="form-label">Hora de Início *</label>
+                            <input type="time" id="eventStartTime" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="eventEndDate" class="form-label">Data de Término *</label>
+                            <input type="date" id="eventEndDate" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="eventEndTime" class="form-label">Hora de Término *</label>
+                            <input type="time" id="eventEndTime" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventType" class="form-label">Tipo *</label>
+                    <select id="eventType" class="form-control" required>
+                        <option value="meeting">Reunião</option>
+                        <option value="call">Ligação</option>
+                        <option value="task">Tarefa</option>
+                        <option value="deadline">Prazo</option>
+                        <option value="other">Outro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventRelatedTo" class="form-label">Relacionado a</label>
+                    <select id="eventRelatedTo" class="form-control">
+                        <option value="">Nada</option>
+                        <option value="customer">Cliente</option>
+                        <option value="lead">Lead</option>
+                        <option value="opportunity">Oportunidade</option>
+                        <option value="sale">Venda</option>
+                    </select>
+                </div>
+                
+                <div id="relatedToIdContainer" class="form-group" style="display: none;">
+                    <label for="relatedToId" class="form-label">Selecione</label>
+                    <select id="relatedToId" class="form-control">
+                        <option value="">Carregando...</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventDescription" class="form-label">Descrição</label>
+                    <textarea id="eventDescription" class="form-control" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventLocation" class="form-label">Local</label>
+                    <input type="text" id="eventLocation" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Lembrete</label>
+                    <div class="form-check">
+                        <input type="checkbox" id="eventReminder">
+                        <label for="eventReminder">Ativar lembrete</label>
+                    </div>
+                </div>
+                
+                <div id="reminderTimeContainer" class="form-group" style="display: none;">
+                    <label for="reminderTime" class="form-label">Tempo antes</label>
+                    <select id="reminderTime" class="form-control">
+                        <option value="5">5 minutos antes</option>
+                        <option value="10">10 minutos antes</option>
+                        <option value="15">15 minutos antes</option>
+                        <option value="30">30 minutos antes</option>
+                        <option value="60">1 hora antes</option>
+                        <option value="120">2 horas antes</option>
+                        <option value="1440">1 dia antes</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Evento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Estilos do calendário */
+.calendar-month {
+    width: 100%;
+}
+
+.calendar-header {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.calendar-day-header {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+}
+
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+}
+
+.calendar-day {
+    min-height: 100px;
+    padding: 5px;
+    border: 1px solid #e0e0e0;
+    position: relative;
+}
+
+.calendar-day.weekend {
+    background-color: #f9f9f9;
+}
+
+.calendar-day.today {
+    background-color: #e6f7ff;
+    font-weight: bold;
+}
+
+.calendar-day.prev-month,
+.calendar-day.next-month {
+    color: #aaa;
+    background-color: #f5f5f5;
+}
+
+.calendar-event {
+    margin-top: 3px;
+    padding: 2px 4px;
+    font-size: 11px;
+    color: white;
+    border-radius: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Estilos para eventos próximos */
+.upcoming-events {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.upcoming-event {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.upcoming-event:last-child {
+    border-bottom: none;
+}
+
+.event-time {
+    font-size: 12px;
+    color: var(--secondary-color);
+    margin-bottom: 5px;
+}
+
+.event-title {
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.event-details {
+    font-size: 12px;
+    color: var(--secondary-color);
+}
+
+/* Estilos do modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 50px auto;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 500px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.modal-close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.mx-15 {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+</style>
+
+<script>
+    $(document).ready(function() {
+        // Modal de evento
+        $('#addEventBtn').click(function() {
+            // Configurar o modal para novo evento
+            $('#eventModal h2').text('Novo Evento');
+            $('#eventForm')[0].reset();
+            
+            // Definir data e hora iniciais para hoje
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            const nextHour = new Date(today.setHours(today.getHours() + 1));
+            const nextHourStr = nextHour.toISOString().split('T')[0];
+            
+            $('#eventStartDate').val(todayStr);
+            $('#eventEndDate').val(todayStr);
+            
+            // Formatar hora: HH:MM
+            const formatTime = (date) => {
+                return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+            };
+            
+            $('#eventStartTime').val(formatTime(today));
+            $('#eventEndTime').val(formatTime(nextHour));
+            
+            // Mostrar o modal
+            $('#eventModal').css('display', 'block');
+        });
+        
+        // Fechar modal
+        $('.modal-close').click(function() {
+            $('#eventModal').css('display', 'none');
+        });
+        
+        // Fechar modal ao clicar fora
+        $(window).click(function(event) {
+            if (event.target == document.getElementById('eventModal')) {
+                $('#eventModal').css('display', 'none');
+            }
+        });
+        
+        // Toggle do lembrete
+        $('#eventReminder').change(function() {
+            if ($(this).is(':checked')) {
+                $('#reminderTimeContainer').show();
+            } else {
+                $('#reminderTimeContainer').hide();
+            }
+        });
+        
+        // Toggle do relacionado a
+        $('#eventRelatedTo').change(function() {
+            if ($(this).val() === '') {
+                $('#relatedToIdContainer').hide();
+            } else {
+                $('#relatedToIdContainer').show();
+                
+                // Em uma aplicação real, aqui faria uma chamada AJAX para carregar as opções
+                // com base no tipo selecionado (cliente, lead, etc)
+                
+                // Simulação de carregamento
+                $('#relatedToId').html('<option value="">Carregando...</option>');
+                
+                setTimeout(function() {
+                    let options = '';
+                    
+                    switch ($('#eventRelatedTo').val()) {
+                        case 'customer':
+                            options = `
+                                <option value="1">João Silva</option>
+                                <option value="2">Ana Santos</option>
+                                <option value="3">Tech Solutions</option>
+                            `;
+                            break;
+                        case 'lead':
+                            options = `
+                                <option value="1">Carlos Oliveira</option>
+                                <option value="2">Fernanda Lima</option>
+                                <option value="3">Ricardo Santos</option>
+                            `;
+                            break;
+                        case 'opportunity':
+                            options = `
+                                <option value="1">Renovação de contrato anual</option>
+                                <option value="2">Projeto de consultoria</option>
+                                <option value="3">Venda de produtos básicos</option>
+                            `;
+                            break;
+                        case 'sale':
+                            options = `
+                                <option value="1">VND-2505-00001</option>
+                                <option value="2">VND-2305-00002</option>
+                                <option value="3">VND-2105-00003</option>
+                            `;
+                            break;
+                    }
+                    
+                    $('#relatedToId').html(options);
+                }, 500);
+            }
+        });
+        
+        // Envio do formulário de evento
+        $('#eventForm').submit(function(e) {
+            e.preventDefault();
+            
+            // Coletar dados do formulário
+            const eventData = {
+                title: $('#eventTitle').val(),
+                startDate: $('#eventStartDate').val(),
+                startTime: $('#eventStartTime').val(),
+                endDate: $('#eventEndDate').val(),
+                endTime: $('#eventEndTime').val(),
+                type: $('#eventType').val(),
+                description: $('#eventDescription').val(),
+                location: $('#eventLocation').val(),
+                hasReminder: $('#eventReminder').is(':checked'),
+                reminderTime: $('#eventReminder').is(':checked') ? $('#reminderTime').val() : null,
+                relatedTo: {
+                    type: $('#eventRelatedTo').val(),
+                    id: $('#eventRelatedTo').val() ? $('#relatedToId').val() : null
+                }
+            };
+            
+            console.log('Dados do evento:', eventData);
+            
+            // Em uma aplicação real, você faria:
+            // fetchAPI('calendar', {
+            //    method: 'POST',
+            //    body: JSON.stringify(eventData)
+            // })
+            // .then(response => {
+            //    // Atualizar calendário
+            //    $('#eventModal').css('display', 'none');
+            //    showNotification('Evento criado com sucesso', 'success');
+            // })
+            // .catch(error => {
+            //    console.error('Erro ao criar evento:', error);
+            //    showNotification('Erro ao criar evento', 'error');
+            // });
+            
+            // Simulação
+            alert('Evento criado com sucesso!');
+            $('#eventModal').css('display', 'none');
+        });
+        
+        // Navegação do calendário
+        $('#prevMonth').click(function() {
+            alert('Mês anterior');
+            // Em uma aplicação real, atualizaria o calendário para o mês anterior
+        });
+        
+        $('#nextMonth').click(function() {
+            alert('Próximo mês');
+            // Em uma aplicação real, atualizaria o calendário para o próximo mês
+        });
+        
+        $('#todayBtn').click(function() {
+            alert('Hoje');
+            // Em uma aplicação real, atualizaria o calendário para o mês/semana/dia atual
+        });
+        
+        // Alternar visualização
+        $('#calendarView').change(function() {
+            alert('Visualização alterada para: ' + $(this).val());
+            // Em uma aplicação real, atualizaria o calendário para a visualização selecionada
+        });
+        
+        // Filtros do calendário
+        $('input[type="checkbox"]').change(function() {
+            // Em uma aplicação real, atualizaria os eventos mostrados com base nos filtros
+            console.log('Filtros atualizados');
+        });
+    });
+</script>

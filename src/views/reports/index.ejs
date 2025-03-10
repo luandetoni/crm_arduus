@@ -1,0 +1,375 @@
+<div class="dashboard">
+    <%- include('../partials/sidebar') %>
+    
+    <div class="main-content">
+        <%- include('../partials/header') %>
+        
+        <div class="content">
+            <div class="d-flex align-center justify-between mb-20">
+                <h1 class="page-title">Relatórios</h1>
+                <div>
+                    <button id="exportReportBtn" class="btn btn-primary">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col" style="flex: 0 0 250px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Tipos de Relatório</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="report-types">
+                                <li class="report-type active" data-type="sales">
+                                    <i class="fas fa-chart-line"></i> Vendas
+                                </li>
+                                <li class="report-type" data-type="customers">
+                                    <i class="fas fa-users"></i> Clientes
+                                </li>
+                                <li class="report-type" data-type="leads">
+                                    <i class="fas fa-user-tag"></i> Leads
+                                </li>
+                                <li class="report-type" data-type="opportunities">
+                                    <i class="fas fa-handshake"></i> Oportunidades
+                                </li>
+                                <li class="report-type" data-type="products">
+                                    <i class="fas fa-box"></i> Produtos
+                                </li>
+                                <li class="report-type" data-type="activities">
+                                    <i class="fas fa-tasks"></i> Atividades
+                                </li>
+                                <li class="report-type" data-type="performance">
+                                    <i class="fas fa-trophy"></i> Desempenho
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-20">
+                        <div class="card-header">
+                            <h3 class="card-title">Filtros</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="periodFilter" class="form-label">Período</label>
+                                <select id="periodFilter" class="form-control">
+                                    <option value="today">Hoje</option>
+                                    <option value="yesterday">Ontem</option>
+                                    <option value="this_week">Esta Semana</option>
+                                    <option value="last_week">Semana Passada</option>
+                                    <option value="this_month" selected>Este Mês</option>
+                                    <option value="last_month">Mês Passado</option>
+                                    <option value="this_quarter">Este Trimestre</option>
+                                    <option value="this_year">Este Ano</option>
+                                    <option value="last_year">Ano Passado</option>
+                                    <option value="custom">Personalizado</option>
+                                </select>
+                            </div>
+                            
+                            <div id="customDateRange" style="display: none;">
+                                <div class="form-group">
+                                    <label for="startDate" class="form-label">Data Inicial</label>
+                                    <input type="date" id="startDate" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="endDate" class="form-label">Data Final</label>
+                                    <input type="date" id="endDate" class="form-control">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="formatFilter" class="form-label">Formato</label>
+                                <select id="formatFilter" class="form-control">
+                                    <option value="table">Tabela</option>
+                                    <option value="chart">Gráfico</option>
+                                    <option value="both" selected>Ambos</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button id="generateReportBtn" class="btn btn-primary btn-block">Gerar Relatório</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Relatório de Vendas - Maio 2025</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="chartContainer" style="height: 300px; margin-bottom: 20px;">
+                                <!-- Aqui seria renderizado um gráfico em uma aplicação real -->
+                                <!-- Simulação visual do gráfico -->
+                                <div style="width: 100%; height: 100%; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 5px; position: relative; overflow: hidden;">
+                                    <div style="position: absolute; bottom: 0; left: 0; width: 20%; height: 40%; background-color: #4a6cf7; margin: 0 5%;"></div>
+                                    <div style="position: absolute; bottom: 0; left: 20%; width: 20%; height: 60%; background-color: #4a6cf7; margin: 0 5%;"></div>
+                                    <div style="position: absolute; bottom: 0; left: 40%; width: 20%; height: 80%; background-color: #4a6cf7; margin: 0 5%;"></div>
+                                    <div style="position: absolute; bottom: 0; left: 60%; width: 20%; height: 75%; background-color: #4a6cf7; margin: 0 5%;"></div>
+                                    <div style="position: absolute; bottom: 0; left: 80%; width: 20%; height: 45%; background-color: #4a6cf7; margin: 0 5%;"></div>
+                                    
+                                    <div style="position: absolute; top: 10px; left: 10px; font-weight: bold;">Total de Vendas por Semana</div>
+                                    
+                                    <div style="position: absolute; bottom: 10px; left: 12%; font-size: 12px;">Semana 1</div>
+                                    <div style="position: absolute; bottom: 10px; left: 32%; font-size: 12px;">Semana 2</div>
+                                    <div style="position: absolute; bottom: 10px; left: 52%; font-size: 12px;">Semana 3</div>
+                                    <div style="position: absolute; bottom: 10px; left: 72%; font-size: 12px;">Semana 4</div>
+                                    <div style="position: absolute; bottom: 10px; left: 92%; font-size: 12px;">Semana 5</div>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Semana</th>
+                                            <th>Total de Vendas</th>
+                                            <th>Número de Pedidos</th>
+                                            <th>Ticket Médio</th>
+                                            <th>Taxa de Conversão</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Semana 1 (01/05 - 07/05)</td>
+                                            <td>R$ 12.850,00</td>
+                                            <td>15</td>
+                                            <td>R$ 856,67</td>
+                                            <td>28%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Semana 2 (08/05 - 14/05)</td>
+                                            <td>R$ 18.500,00</td>
+                                            <td>22</td>
+                                            <td>R$ 840,91</td>
+                                            <td>32%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Semana 3 (15/05 - 21/05)</td>
+                                            <td>R$ 25.400,00</td>
+                                            <td>28</td>
+                                            <td>R$ 907,14</td>
+                                            <td>38%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Semana 4 (22/05 - 28/05)</td>
+                                            <td>R$ 21.750,00</td>
+                                            <td>25</td>
+                                            <td>R$ 870,00</td>
+                                            <td>35%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Semana 5 (29/05 - 31/05)</td>
+                                            <td>R$ 9.350,00</td>
+                                            <td>11</td>
+                                            <td>R$ 850,00</td>
+                                            <td>30%</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Total</th>
+                                            <th>R$ 87.850,00</th>
+                                            <th>101</th>
+                                            <th>R$ 869,80</th>
+                                            <th>33%</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-20">
+                        <div class="card-header">
+                            <h3 class="card-title">Vendas por Vendedor</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Vendedor</th>
+                                            <th>Total de Vendas</th>
+                                            <th>Número de Pedidos</th>
+                                            <th>Ticket Médio</th>
+                                            <th>Taxa de Conversão</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Vendedor 1</td>
+                                            <td>R$ 42.300,00</td>
+                                            <td>45</td>
+                                            <td>R$ 940,00</td>
+                                            <td>36%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vendedor 2</td>
+                                            <td>R$ 28.750,00</td>
+                                            <td>32</td>
+                                            <td>R$ 898,44</td>
+                                            <td>30%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vendedor 3</td>
+                                            <td>R$ 16.800,00</td>
+                                            <td>24</td>
+                                            <td>R$ 700,00</td>
+                                            <td>28%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-20">
+                        <div class="card-header">
+                            <h3 class="card-title">Vendas por Produto</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Unidades Vendidas</th>
+                                            <th>Total de Vendas</th>
+                                            <th>Percentual</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Produto Premium</td>
+                                            <td>68</td>
+                                            <td>R$ 32.600,00</td>
+                                            <td>37.1%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Produto Básico</td>
+                                            <td>120</td>
+                                            <td>R$ 25.800,00</td>
+                                            <td>29.4%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Serviço de Consultoria</td>
+                                            <td>25</td>
+                                            <td>R$ 18.750,00</td>
+                                            <td>21.3%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Assinatura Mensal</td>
+                                            <td>85</td>
+                                            <td>R$ 10.700,00</td>
+                                            <td>12.2%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.report-types {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.report-type {
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.report-type:hover {
+    background-color: #f5f5f5;
+}
+
+.report-type.active {
+    background-color: rgba(74, 108, 247, 0.1);
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.report-type i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+</style>
+
+<script>
+    $(document).ready(function() {
+        // Trocar tipo de relatório
+        $('.report-type').click(function() {
+            $('.report-type').removeClass('active');
+            $(this).addClass('active');
+            
+            // Em uma aplicação real, carregaria os dados do relatório selecionado
+            alert('Relatório alterado para: ' + $(this).data('type'));
+        });
+        
+        // Toggle de período personalizado
+        $('#periodFilter').change(function() {
+            if ($(this).val() === 'custom') {
+                $('#customDateRange').show();
+            } else {
+                $('#customDateRange').hide();
+            }
+        });
+        
+        // Gerar relatório
+        $('#generateReportBtn').click(function() {
+            const reportType = $('.report-type.active').data('type');
+            const period = $('#periodFilter').val();
+            const format = $('#formatFilter').val();
+            
+            let startDate, endDate;
+            if (period === 'custom') {
+                startDate = $('#startDate').val();
+                endDate = $('#endDate').val();
+                
+                if (!startDate || !endDate) {
+                    alert('Por favor, selecione um período válido.');
+                    return;
+                }
+            }
+            
+            console.log('Gerando relatório:', {
+                type: reportType,
+                period: period,
+                format: format,
+                startDate: startDate,
+                endDate: endDate
+            });
+            
+            // Em uma aplicação real, faria uma chamada à API para gerar o relatório
+            alert('Relatório gerado com sucesso!');
+        });
+        
+        // Exportar relatório
+        $('#exportReportBtn').click(function() {
+            const format = prompt('Escolha o formato (pdf, excel, csv):', 'pdf');
+            
+            if (format) {
+                console.log('Exportando relatório em formato:', format);
+                
+                // Em uma aplicação real, faria uma chamada à API para exportar o relatório
+                alert('Relatório exportado com sucesso em formato ' + format);
+            }
+        });
+    });
+</script>
